@@ -38,7 +38,7 @@ define (require, exports, module) ->
     'ui.select2',
     'LocalStorageModule',
     'headroom',
-    'xeditable'
+    'xeditable',
     'cgNotify'
   ]
 
@@ -68,4 +68,3 @@ define (require, exports, module) ->
       scope.startingPoints = data.map (tool) -> tool.active = true; tool
 
     ga 'send', 'event', 'init', $loc.path()
-

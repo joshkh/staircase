@@ -7,7 +7,7 @@
         [hiccup.element :only (mail-to)]))
 
 (defelem tool-not-found [{contact :contact-email}]
-  [:div.alert.alert-danger 
+  [:div.alert.alert-danger
    [:h3 "Error"]
    [:p
     " The required tool for this step could not be found. Check with the site
@@ -39,7 +39,7 @@
      [:small "show all steps"]]]
     [:div.list-group.history-steps
      [:a.list-group-item {:ng-repeat "s in steps"
-                          :ng-controller "HistoryStepCtrl as stepCtrl" 
+                          :ng-controller "HistoryStepCtrl as stepCtrl"
                           :ng-class "{active: step.id == s.id}"
                           :href "/history/{{history.id}}/{{$index + 1}}"
                           :folded "elide"}
@@ -76,6 +76,26 @@
     [:div.panel-body {:ng-hide "nextSteps.length"}
      [:em "No steps available"]]]])
 
+(defn super-menu [config]
+  [:div.super-menu
+    {:ng-mouseleave "hidemenu()"
+      :ng-mouseenter "showmenu()"}
+    [:div.main-menu
+     [:div {:ng-repeat "category in categories"
+      :ng-mouseover "showtools(category)"} "{{category}}"]]
+    [:div.sub-menu
+    {:ng-hide "!showsubmenu"}
+    ;  [:div {:ng-repeat "tool in tools"} "{{tool.ident}}"]
+     [:div.list-group.steps.expanded
+      [:next-step
+       {:ng-repeat "ns in nextSteps2"
+        :previous-step "step"
+        :append-step "appView.nextStep(data)"
+        :tool "ns.tool"
+        :service "ns.service"
+        :data "ns.data"}]]]])
+
+
 (defn centre-column [config]
   [:div.col-xs-12.slide-left.central-panel.flex-column
    {:ng-class "{'col-md-8': !state.expanded,
@@ -97,4 +117,4 @@
   (html [:div.container-fluid.history-view
          (apply vector :div.row.flex-row
           ;; L R C because of column re-ordering.
-          ((juxt left-column right-column centre-column) config))]))
+          ((juxt left-column centre-column super-menu) config))]))

@@ -85,7 +85,7 @@
       :web-max-age ~(* 30 24 60 60)
       :web-contacts [["fa-github" "https://github.com/alexkalderimis/staircase" "GitHub"]]
       :web-services {
-        "flymine" "http://www.flymine.org/query/service"
+        "flymine" "http://beta.flymine.org/beta/service"
         "zfin" "http://www.zebrafishmine.org/service"
         "yeastmine" "http://yeastmine.yeastgenome.org/yeastmine/service"
         "mousemine" "http://www.mousemine.org/mousemine/service"}
@@ -127,9 +127,9 @@
                    :show-enrichment
                    :resolve-ids
                    :combine-lists
-                   :convert-list
+                   [:convert-list {:category "CatA"}]
                    :list-templates
-                   :export
+                   [:export {:category "CatA"}]
                    :id-handler
                    :keyword-search ;; From resources/config - really must auto-configure this list...
                    ]

@@ -350,7 +350,7 @@ define (require) ->
                 for s in services when root.indexOf(s.root) >= 0
                   return s.token
               console.log "TOKEN", token
-          
+
               step.data.service.token = token
               init()
           else
@@ -538,6 +538,8 @@ define (require) ->
 
       scope.$watch 'tool.headingURI', ->
 
+        console.log "THIS TOOL IS", @
+
         if scope.tool
 
           loadStyle $window, scope.tool
@@ -573,4 +575,3 @@ define (require) ->
     link: (scope, element, attrs) -> L.defer ->
       scope.$watch 'folded', (folded) ->
         element.toggleClass 'folded-up', folded
-

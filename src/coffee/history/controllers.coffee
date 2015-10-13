@@ -1,11 +1,11 @@
 define (require) ->
-  
+
   ng = require 'angular'
   L = require 'lodash'
   ga = require 'analytics'
   require 'services'
   ChooseDialogueCtrl = require './choose-dialogue'
-  
+
   # Run-time requirements
   injectables = L.pairs
     scope: '$scope'
@@ -46,7 +46,7 @@ define (require) ->
       conf.provides = (x) -> x in providers
     else
       conf.provides = (x) -> x is providers
-    
+
     conf
 
   # Decorator to create injecting constructor.
@@ -56,7 +56,7 @@ define (require) ->
     fn.call @
 
   Controllers = ng.module 'steps.history.controllers', ['steps.services']
-  
+
   Controllers.controller 'HistoryCtrl', class HistoryController
 
     currentCardinal: 0
@@ -80,18 +80,31 @@ define (require) ->
             exporters.push {key, data, tool}
         otherSteps = (s for s in scope.nextSteps when not s.tool.handles 'items')
         scope.nextSteps = otherSteps.concat(exporters)
+        console.log "NEXT STEPS (items)", scope.nextSteps
 
       scope.$watch 'messages', (msgs) ->
         handlers = L.values msgs
         otherSteps = (s for s in scope.nextSteps when s.kind isnt 'msg')
         scope.nextSteps = otherSteps.concat(handlers)
+        console.log "NEXT STEPS (msg)", scope.nextSteps
 
       scope.$watch 'list', ->
         listHandlers = []
         for tool in scope.nextTools when tool.handles 'list'
           listHandlers.push {tool, data: scope.list}
         otherSteps = (s for s in scope.nextSteps when not s.tool.handles 'list')
+        console.log "listHandlers", listHandlers
         scope.nextSteps = otherSteps.concat(listHandlers)
+
+        categories = []
+        scope.nextSteps2 = []
+        for tool in scope.nextTools
+          if tool.category? and tool.category not in categories
+            categories.push tool.category
+            scope.nextSteps2.push tool
+        categories.push "Other"
+        console.log "nextsteps2", scope.nextSteps2
+        scope.categories = categories
 
     init: ->
       {Histories, Mines, params, http} = @
@@ -110,6 +123,29 @@ define (require) ->
       @scope.steps = Histories.getSteps id: params.id
       @scope.step = Histories.getStep id: params.id, idx: @currentCardinal - 1
       @mines = Mines.all()
+
+      @scope.showtools = (val) =>
+        # @scope.nextSteps2 = (tool for tool in @scope.nextTools when tool.category is val)
+        console.log "SHOWING TOOLS"
+        console.log @scope.nextSteps
+        # debugger
+        if val isnt "Other"
+          @scope.nextSteps2 = (s for s in @scope.nextSteps when s.tool.category is val)
+        else
+          for item in @scope.nextSteps
+            console.log "val", item.tool.category
+          @scope.nextSteps2 = (s for s in @scope.nextSteps when not s.tool.category?)
+
+        # console.log "can show", tool
+        console.log "next steps is now", @scope.nextSteps2
+
+      @scope.showmenu = =>
+        console.log "showing menu"
+        @scope.showsubmenu = true
+
+      @scope.hidemenu = =>
+        console.log "hiding menu"
+        @scope.showsubmenu = false
 
       toolNotFound = (e) => @to => @scope.error = e
 
@@ -133,6 +169,7 @@ define (require) ->
       @scope.history = Histories.get id: params.id
 
     setItems: -> (key, type, ids) => @set ['items', key], {type, ids}
+
 
     # Set scope values using an array of keys.
     # eg: this.set ['foo', 'bar'], 2 == this.scope.foo.bar = 2
@@ -253,6 +290,7 @@ define (require) ->
         modal.dismiss 'cancel'
         scope.data = L.clone step.data, true
 
+
     scope.openEditDialogue = ->
       dialogue = modalFactory.open
         templateUrl: '/partials/edit-step-data.html'
@@ -262,4 +300,3 @@ define (require) ->
           index: -> scope.$index
           history: -> scope.history
           step: -> scope.s
-
