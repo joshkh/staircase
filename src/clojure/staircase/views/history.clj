@@ -50,7 +50,7 @@
     ])
 
 (defn left-column [config]
-  [:div.sidebar.slide-left.col-xs-12.col-md-2
+  [:div.sidebar-left
    {:ng-class "{minimised: state.expanded, collapsed: collapsed}"}
    current-history
    (staircase.views.facets/snippet)])
@@ -77,12 +77,19 @@
      [:em "No steps available"]]]])
 
 (defn super-menu [config]
-  [:div.super-menu
+  [:div.sidebar-right
     {:ng-mouseleave "hidemenu()"
       :ng-mouseenter "showmenu()"}
     [:div.main-menu
-     [:div {:ng-repeat "category in categories"
-      :ng-mouseover "showtools(category)"} "{{category}}"]]
+    ;  [:div {:ng-repeat "category in categories"
+    ;   :ng-mouseover "showtools(category)"} "{{category}}"]
+    [:i.fa.fa-bar-chart.fa-2x]
+      [:ul
+       [:li {:ng-repeat "category in categories"}
+        [:a {:href "#"}
+          [:i.fa.fa-bar-chart]
+          [:span "{{category}}"]]]]
+    ]
     [:div.sub-menu
     {:ng-hide "!showsubmenu"}
     ;  [:div {:ng-repeat "tool in tools"} "{{tool.ident}}"]
@@ -97,11 +104,11 @@
 
 
 (defn centre-column [config]
-  [:div.col-xs-12.slide-left.central-panel.flex-column
-   {:ng-class "{'col-md-8': !state.expanded,
-              'col-md-offset-2': !state.expanded}"}
+  [:div.central-panel
+  ;  {:ng-class "{'col-md-8': !state.expanded,
+  ;             'col-md-offset-2': !state.expanded}"}
    (tool-not-found {:ng-show "error.status === 404"} config)
-   [:div.current-step.flex-box
+   [:div.current-step
     {:ng-hide "error.status === 404"
      :tool "tool"
      :step "step"

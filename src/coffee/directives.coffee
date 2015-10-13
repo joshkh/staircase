@@ -380,7 +380,7 @@ define (require) ->
       </div>
     """
     link: (scope, element, attrs) ->
-      element.addClass('panel panel-default')
+      # element.addClass('panel panel-default')
       console.log 'currentStep.link called'
       compiled = false
       scope.$watch 'tool.type', (toolType) ->
