@@ -49,11 +49,58 @@
       "{{s.title}}"]]
     ])
 
+; (defn left-column [config]
+;   [:div.sidebar-left
+;    {:ng-class "{expand: showhistory}"
+;     :ng-mouseleave "shrinkhistory()"
+;     :ng-mouseenter "expandhistory()"}
+;    current-history
+;    (staircase.views.facets/snippet)])
+
 (defn left-column [config]
-  [:div.sidebar-left
-   {:ng-class "{minimised: state.expanded, collapsed: collapsed}"}
-   current-history
-   (staircase.views.facets/snippet)])
+ [:div.history-blind
+  {:ng-class "{open: openhistory}"
+  :ng-mouseleave "shrinkhistory()"
+  :ng-mouseenter "expandhistory()"}
+  [:div.history-container
+   [:div.previous-steps
+    [:div.previous-step
+     [:div.summary
+      [:i.fa.fa-cubes.fa-2x]
+      [:div "Show List Tool"]]
+     [:div.details "Details"]]]]])
+      ; current-history
+      ; (staircase.views.facets/snippet)])
+
+      (defn left-column [config]
+       [:div.history-blind
+        {:ng-class "{open: openhistory}"
+        :ng-mouseleave "shrinkhistory()"
+        :ng-mouseenter "expandhistory()"}
+        [:div.history-container
+         [:div.previous-steps
+          [:div.previous-step
+           [:div.summary
+            [:i.fa.fa-cubes.fa-2x]
+            [:div "Show List Tool"]]
+           [:div.details "Details"]]
+
+           [:div.previous-step
+            [:div.summary.arrow_box
+             [:i.fa.fa-cubes.fa-2x]
+             [:div "Show List Tool"]]
+            [:div.details "Details"]]
+
+            [:div.previous-step
+             [:div.summary.arrow_box
+              [:i.fa.fa-cubes.fa-2x]
+              [:div "Show List Tool"]]
+             [:div.details "Using List ABCDEFG ..."]]
+
+           ]]])
+            ; current-history
+            ; (staircase.views.facets/snippet)])
+
 
 (defn right-column [config]
   [:div.sidebar.slide-right.col-xs-12.col-md-2.col-md-offset-10
@@ -80,14 +127,18 @@
   [:div.sidebar-right
     {:ng-mouseleave "hidemenu()"
       :ng-mouseenter "showmenu()"}
+    [:div.header
+      [:span.count "172"]
+      [:span.type "Genes"]]
     [:div.main-menu
     ;  [:div {:ng-repeat "category in categories"
     ;   :ng-mouseover "showtools(category)"} "{{category}}"]
-    [:i.fa.fa-bar-chart.fa-2x]
+    ; [:i.fa.fa-bar-chart.fa-2x]
       [:ul
-       [:li {:ng-repeat "category in categories"}
+       [:li {:ng-repeat "category in categories"
+             :ng-mouseover "showtools(category)"}
         [:a {:href "#"}
-          [:i.fa.fa-bar-chart]
+          [:i.fa.fa-bar-chart.fa-2x]
           [:span "{{category}}"]]]]
     ]
     [:div.sub-menu

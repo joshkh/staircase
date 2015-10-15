@@ -147,6 +147,14 @@ define (require) ->
         console.log "hiding menu"
         @scope.showsubmenu = false
 
+      @scope.expandhistory = =>
+        console.log "showing history"
+        @scope.openhistory = true
+
+      @scope.shrinkhistory = =>
+        console.log "hiding history"
+        @scope.openhistory = false
+
       toolNotFound = (e) => @to => @scope.error = e
 
       unless @scope.tool? # tool never changes! to do so breaks the history API.
