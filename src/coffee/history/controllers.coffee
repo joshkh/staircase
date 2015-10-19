@@ -128,7 +128,8 @@ define (require) ->
         # @scope.nextSteps2 = (tool for tool in @scope.nextTools when tool.category is val)
         console.log "SHOWING TOOLS"
         console.log @scope.nextSteps
-        # debugger
+        console.log "SCOPE.STEPS", @scope.steps;
+        console.log "SCOPE.HISTORIES", @scope.steps;
         if val isnt "Other"
           @scope.nextSteps2 = (s for s in @scope.nextSteps when s.tool.category is val)
         else

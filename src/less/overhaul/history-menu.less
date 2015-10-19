@@ -1,25 +1,48 @@
 @navheight: 54px;
 @clr-menu-bg: hsla(80, 61%, 50%, 1);
-@clr-menu-bg-highlight: lighten(@clr-menu-bg, 20%);
+@clr-menu-bg: hsla(201, 60%, 65%, 1);
+
+
+@clr-menu-bg: #444444;
+@clr-menu-bg2: hsla(80, 61%, 50%, 1);
+
+
+@clr-menu-bg-highlight: lighten(@clr-menu-bg2, 20%);
 @clr-menu-bg-highlight2: lighten(@clr-menu-bg, 10%);
 @clr-menu-bg-border: darken(@clr-menu-bg, 10%);
 
-@sz-blind-closed: 100px;
-@sz-blind-open: 250px;
+@sz-blind-closed: 75px;
+@sz-blind-open: 300px;
 
 
+.folded {
+  display: flex;
+}
+
+.transparent {
+  opacity: 0;
+}
+
+
+.tooly {
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  width: @sz-blind-closed;
+
+}
 .arrow_box {
 	position: relative;
 	// background: @clr-menu-bg;
-	border-top: 1px solid @clr-menu-bg-border;
+
+  border-top: 1px solid @clr-menu-bg-border;
 
   &:hover {
     background: @clr-menu-bg-highlight;
   }
 
-
-
 }
+
 .arrow_box:after, .arrow_box:before {
 	bottom: 100%;
 	left: 50%;
@@ -34,21 +57,22 @@
 .arrow_box:after {
 	border-color: rgba(100, 83, 213, 0);
 	border-bottom-color: @clr-menu-bg;
-	border-width: 10px;
-	margin-left: -10px;
-
-  &:hover {
-    border-bottom-color: @clr-menu-bg-highlight;
-  }
-
+	border-width: 5px;
+	margin-left: -5px;
 
 
 }
+
+.arrow_box:hover:after {
+	border-bottom-color: @clr-menu-bg-highlight;
+}
+
+
 .arrow_box:before {
 	border-color: rgba(0, 0, 0, 0);
 	border-bottom-color: @clr-menu-bg-border;
-	border-width: 11px;
-	margin-left: -11px;
+	border-width: 6px;
+	margin-left: -6px;
 }
 
 .history-blind {
@@ -57,7 +81,7 @@
     width: @sz-blind-open;
   }
 
-  transition: width ease 150ms;
+  transition: width ease-out 150ms;
 
   position: fixed;
   height: 100%;
@@ -85,11 +109,13 @@
 
         &:hover {
           background: @clr-menu-bg-highlight;
+          color: black;
         }
 
         &:first-child {
           // color: white;
-          background: @clr-menu-bg-highlight
+          background: @clr-menu-bg-highlight;
+          color: black;
         }
 
 
@@ -97,15 +123,25 @@
         // min-height: 50px;
         display: flex;
         flex-direction: row;
+        color: rgb(224, 221, 215);
 
         .summary {
           text-align: center;
           display: inline-block;
           width: @sz-blind-closed;
           padding: 10px;
+
+          .numbering {
+            position: absolute;
+            left: 5px;
+            top: 5px;
+            background-color: transparent;
+          }
+
         }
 
         .details {
+          transition: width ease 3s;
           display: inline-block;
           width: @sz-blind-open - @sz-blind-closed;
           padding: 10px;

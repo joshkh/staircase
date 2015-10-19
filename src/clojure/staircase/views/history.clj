@@ -78,24 +78,26 @@
         :ng-mouseleave "shrinkhistory()"
         :ng-mouseenter "expandhistory()"}
         [:div.history-container
+        ;  [:div "Hello, {{history.title}}"]
          [:div.previous-steps
           [:div.previous-step
-           [:div.summary
-            [:i.fa.fa-cubes.fa-2x]
-            [:div "Show List Tool"]]
-           [:div.details "Details"]]
+            {:ng-repeat "s in steps | reverse"
+             :ng-controller "HistoryStepCtrl as stepCtrl"
+             :ng-class "{active: step.id == s.id}"
+             :href "/history/{{history.id}}/{{$index + 1}}"}
+           [:div.summary.arrow_box
+            [:span.badge.pull-left.numbering "{{steps.indexOf(s) + 1}}"]
+            [:i.fa.fa-cubes.fa-2x]]
+            ; [:div "{{s.tool}}"]]
+           [:div.details {:ng-class "{transparent: !openhistory}"} "{{s.title}}"]]
 
-           [:div.previous-step
-            [:div.summary.arrow_box
-             [:i.fa.fa-cubes.fa-2x]
-             [:div "Show List Tool"]]
-            [:div.details "Details"]]
+          ;  [:div.previous-step
+          ;   [:div.summary.arrow_box
+          ;    [:i.fa.fa-cubes.fa-2x]
+          ;    [:div "Began"]]
+          ;   [:div.details {:ng-class "{transparent: !openhistory}"} "{{history.title}}"]]
 
-            [:div.previous-step
-             [:div.summary.arrow_box
-              [:i.fa.fa-cubes.fa-2x]
-              [:div "Show List Tool"]]
-             [:div.details "Using List ABCDEFG ..."]]
+
 
            ]]])
             ; current-history
