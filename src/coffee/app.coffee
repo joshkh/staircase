@@ -20,6 +20,9 @@ define (require, exports, module) ->
   require 'controllers'
   config = require 'json!/api/v1/client-config'
   ga     = require 'analytics'
+  # require 'perfect_scrollbar'
+
+  # debugger
 
   # Whitelist the sources of any tools we plan on using.
   whiteList = ['self'].concat(config.whitelist)
@@ -40,6 +43,8 @@ define (require, exports, module) ->
     'headroom',
     'xeditable',
     'cgNotify'
+    # 'perfect_scrollbar'
+    # 'perfectScrollbarJquery'
   ]
 
   Steps.config Array '$routeProvider', (routes) -> Steps.routes = routes

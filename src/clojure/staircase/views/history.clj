@@ -72,24 +72,27 @@
       ; current-history
       ; (staircase.views.facets/snippet)])
 
-      (defn left-column [config]
-       [:div.history-blind
-        {:ng-class "{open: openhistory}"
-        :ng-mouseleave "shrinkhistory()"
-        :ng-mouseenter "expandhistory()"}
-        [:div.history-container
-        ;  [:div "Hello, {{history.title}}"]
-         [:div.previous-steps
-          [:div.previous-step
-            {:ng-repeat "s in steps | reverse"
-             :ng-controller "HistoryStepCtrl as stepCtrl"
-             :ng-class "{active: step.id == s.id}"
-             :href "/history/{{history.id}}/{{$index + 1}}"}
-           [:div.summary.arrow_box
-            [:span.badge.pull-left.numbering "{{steps.indexOf(s) + 1}}"]
-            [:i.fa.fa-cubes.fa-2x]]
-            ; [:div "{{s.tool}}"]]
-           [:div.details {:ng-class "{transparent: !openhistory}"} "{{s.title}}"]]
+
+
+(defn left-column [config]
+ [:div.history-blind
+  {:ng-class "{open: openhistory}"
+  :ng-mouseleave "shrinkhistory()"
+  :ng-mouseenter "expandhistory()"}
+  [:div.history-container
+  ;  [:div "Hello, {{history.title}}"]
+   [:div.previous-steps
+    [:div.previous-step
+      {:ng-repeat "s in steps | reverse"
+       :ng-controller "HistoryStepCtrl as stepCtrl"
+       :ng-class "{hot: step.id == s.id}"
+       :ng-href "http://www.google.com/"}
+     [:div.summary
+      [:span.badge.numbering "{{steps.indexOf(s) + 1}}"]
+      [:i.fa.fa-cubes.fa-2x]
+      [:div "{{s.tool}}"]]
+     [:div.details {:ng-class "{transparent: !openhistory}"}
+     [:a {:href "/history/{{history.id}}/{{steps.length - $index}}"} "{{s.title}}"]]]]
 
           ;  [:div.previous-step
           ;   [:div.summary.arrow_box
@@ -99,7 +102,7 @@
 
 
 
-           ]]])
+           ]])
             ; current-history
             ; (staircase.views.facets/snippet)])
 

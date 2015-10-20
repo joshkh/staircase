@@ -32,6 +32,8 @@ require.config
       init: -> loadCss "/vendor/select2/select2.css"
     select2:
       deps: ['jquery']
+    'perfect-scrollbar':
+      deps: ['angular']
     'angular-mocks':
       deps: [ 'angular' ]
       exports: 'angular.mock'
@@ -61,6 +63,7 @@ require.config
     'angular-ui-select2': '/vendor/angular-ui-select2/src/select2'
     'angular-ui':      '/vendor/angular-ui-bootstrap-bower/ui-bootstrap-tpls'
     angular:           '/vendor/angular/angular'
+    'perfect_scrollbar': '/vendor/angular-perfect-scrollbar/src/angular-perfect-scrollbar'
     'angular-xeditable': '/vendor/angular-xeditable/dist/js/xeditable.min'
     domReady:          '/vendor/requirejs-domready/domReady'
     font:              "/vendor/requirejs-plugins/src/font"
@@ -78,5 +81,6 @@ require.config
     select2:           '/vendor/select2/select2'
     text:              "/vendor/requirejs-plugins/lib/text"
     underscore:        '/vendor/lodash/dist/lodash.underscore'
+
 
   deps: ['./bootstrap']

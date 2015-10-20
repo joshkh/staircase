@@ -24,6 +24,9 @@ define (require) ->
     silentLocation: '$ngSilentLocation'
     serviceStamp: 'serviceStamp'
     notify: 'notify'
+    ps: 'perfect_scrollbar'
+
+
 
   # Test to see if two strings overlap.
   overlaps = (x, y) -> x && y && (x.indexOf(y) >= 0 || y.indexOf(x) >= 0)
@@ -75,6 +78,7 @@ define (require) ->
 
       scope.$watchCollection 'items', ->
         exporters = []
+        # debugger
         for tool in scope.nextTools when tool.handles 'items'
           for key, data of scope.items when data.ids.length
             exporters.push {key, data, tool}
