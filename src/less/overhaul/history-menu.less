@@ -37,6 +37,7 @@
   &.open {
     width: @sz-blind-open;
     border-right: 1px solid #e7e7e7;
+    box-shadow: 2px 0px 2px 0 rgba(0,0,0,0.15);
   }
 
   transition: all ease-out 150ms;
@@ -66,6 +67,11 @@
 
     .previous-steps {
 
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
 
 
       list-style-type: none;
@@ -77,6 +83,7 @@
         &:hover {
           // background: @clr-menu-bg-highlight;
           color: black;
+          background: lighten(@clr-menu-bg, 5%);
         }
 
 

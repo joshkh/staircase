@@ -24,7 +24,7 @@ define (require) ->
     silentLocation: '$ngSilentLocation'
     serviceStamp: 'serviceStamp'
     notify: 'notify'
-    ps: 'perfect_scrollbar'
+
 
 
 

@@ -27,6 +27,7 @@ define (require, exports, module) ->
   # Whitelist the sources of any tools we plan on using.
   whiteList = ['self'].concat(config.whitelist)
 
+
   APP_NAME = 'steps' # TODO: needs to be configurable.
 
   module.exports = Steps = angular.module 'steps', [
@@ -46,6 +47,8 @@ define (require, exports, module) ->
     # 'perfect_scrollbar'
     # 'perfectScrollbarJquery'
   ]
+
+  debugger;
 
   Steps.config Array '$routeProvider', (routes) -> Steps.routes = routes
   Steps.config Array '$controllerProvider', (cs) -> Steps.controllers = cs

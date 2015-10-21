@@ -1,7 +1,7 @@
 define ['lodash', './dialogue', 'text!./template-dialogue.html'], (L, Ctrl, View) ->
 
   controller = (console, scope, Modals, Q, connectTo) ->
-    
+
     console.log scope.data
     scope.listName = scope.data.name
     scope.ids = scope.data.ids
@@ -31,7 +31,8 @@ define ['lodash', './dialogue', 'text!./template-dialogue.html'], (L, Ctrl, View
 
       modalInstance.result.then (selectedTemplate) ->
         step =
-          title: "Ran #{ selectedTemplate.name } over #{ scope.listName }"
+          title: "Structured Search"
+          description: "Using List #{ selectedTemplate.name } over #{ scope.listName }"
           tool: 'show-table'
           data:
             service:
@@ -40,4 +41,3 @@ define ['lodash', './dialogue', 'text!./template-dialogue.html'], (L, Ctrl, View
         scope.appendStep data: step
 
   ['$log', '$scope', '$modal', '$q', 'connectTo', controller]
-
