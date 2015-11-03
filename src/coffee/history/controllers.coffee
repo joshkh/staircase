@@ -77,6 +77,7 @@ define (require) ->
       scope = @scope
 
       scope.$watchCollection 'items', ->
+
         exporters = []
         # debugger
         for tool in scope.nextTools when tool.handles 'items'
@@ -86,11 +87,18 @@ define (require) ->
         scope.nextSteps = otherSteps.concat(exporters)
         console.log "NEXT STEPS (items)", scope.nextSteps
 
+
       scope.$watch 'messages', (msgs) ->
+
         handlers = L.values msgs
         otherSteps = (s for s in scope.nextSteps when s.kind isnt 'msg')
         scope.nextSteps = otherSteps.concat(handlers)
         console.log "NEXT STEPS (msg)", scope.nextSteps
+
+      scope.$watch 'categories', (cats) ->
+        # debugger
+
+
 
       scope.$watch 'list', ->
         listHandlers = []
@@ -100,15 +108,15 @@ define (require) ->
         console.log "listHandlers", listHandlers
         scope.nextSteps = otherSteps.concat(listHandlers)
 
-        categories = []
-        scope.nextSteps2 = []
-        for tool in scope.nextTools
-          if tool.category? and tool.category not in categories
-            categories.push tool.category
-            scope.nextSteps2.push tool
-        categories.push "Other"
-        console.log "nextsteps2", scope.nextSteps2
-        scope.categories = categories
+        # categories = []
+        # scope.nextSteps2 = []
+        # for tool in scope.nextTools
+        #   if tool.category? and tool.category not in categories
+        #     categories.push tool.category
+        #     scope.nextSteps2.push tool
+        # categories.push "Other"
+        # console.log "nextsteps2", scope.nextSteps2
+        # scope.categories = categories
 
     init: ->
       {Histories, Mines, params, http} = @
@@ -119,6 +127,7 @@ define (require) ->
       @scope.messages ?= {}
       @scope.nextSteps ?= []
       @scope.items ?= {}
+      @scope.categories ?= []
 
       @scope.collapsed = true # Hide details in reduced real-estate view.
       @scope.state = {expanded: false, nextStepsCollapsed: true}
@@ -144,6 +153,14 @@ define (require) ->
         # console.log "can show", tool
         console.log "next steps is now", @scope.nextSteps2
 
+      @scope.talktools = (cat) =>
+        @scope.cattools = cat.tools
+        @scope.ccat = cat
+        console.log "scope cat is", @scope.ccat
+
+      @scope.clearcc = () =>
+        @scope.ccat = null
+
       @scope.showmenu = =>
         console.log "showing menu"
         @scope.showsubmenu = true
@@ -160,6 +177,15 @@ define (require) ->
         console.log "hiding history"
         @scope.openhistory = false
 
+      @scope.expandnextsteps = =>
+        console.log "showing history"
+        @scope.opennextsteps = true
+
+      @scope.shrinknextsteps = =>
+        console.log "hiding history"
+        @scope.opennextsteps = false
+
+
       toolNotFound = (e) => @to => @scope.error = e
 
       unless @scope.tool? # tool never changes! to do so breaks the history API.
@@ -171,6 +197,8 @@ define (require) ->
       http.get('/tools', params: {capabilities: 'provider'})
           .then ({data}) -> data.map toTool
           .then (providers) => @scope.providers = providers
+      http.get('/tool-categories')
+          .then ({data}) => @scope.categories = data;
 
     saveHistory: ->
       @scope.editing = false

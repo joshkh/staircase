@@ -75,34 +75,96 @@
 
 
 (defn left-column [config]
- [:div.history-blind
+ [:div.blind.left
   {:ng-class "{open: openhistory}"
   :ng-mouseleave "shrinkhistory()"
   :ng-mouseenter "expandhistory()"}
-  [:div.history-container
-  ;  [:div "Hello, {{history.title}}"]
+  [:div.contents-container
    [:div.previous-steps
     [:a {:ng-href "/history/{{history.id}}/{{steps.length - $index}}"
         :ng-repeat "s in steps | reverse"
          :ng-controller "HistoryStepCtrl as stepCtrl"}
-    [:div.previous-step {:ng-class "{hot: step.id == s.id}"}
+    [:div.step {:ng-class "{hot: step.id == s.id}"}
      [:div.summary
       [:span.badge.numbering "{{steps.indexOf(s) + 1}}"]
       [:i.fa.fa-cubes.fa-2x]
       [:div "{{s.title}}"]]
-     [:div.details {:ng-class "{transparent: !openhistory}"} "{{s.description}}"]]]]
+     [:div.details {:ng-class "{transparent: !openhistory}"} "{{s.description}}"]]]]]])
 
-          ;  [:div.previous-step
-          ;   [:div.summary.arrow_box
-          ;    [:i.fa.fa-cubes.fa-2x]
-          ;    [:div "Began"]]
-          ;   [:div.details {:ng-class "{transparent: !openhistory}"} "{{history.title}}"]]
+ (defn right-column2 [config]
+  [:div.blind.right
+   {:ng-class "{open: opennextsteps}"
+   :ng-mouseleave "shrinknextsteps(); clearcc()"
+   :ng-mouseenter "expandnextsteps()"}
+   [:div.contents-container
+    [:div.next-steps
+     [:div.categories
+       [:a {:ng-href "#"
+           :ng-repeat "category in categories"
+            :ng-controller "HistoryStepCtrl as stepCtrl"
+            :ng-mouseenter "talktools(category)"}
+            [:div.summary {:ng-class "{highlighted: category.label == ccat.label}"}
+                  [:span.badge.numbering "{{category.tools.length}}"]
+                  [:i.fa-2x {:class "{{category.icon}}"}]
+                  [:div "{{category.label}}"]]]]
+      ; [:div.details
+      ;  [:div.listitem {:ng-repeat "tool in cattools"} "{{tool}}"]]
+       ]]])
 
 
 
-           ]])
-            ; current-history
-            ; (staircase.views.facets/snippet)])
+;; THIS WORKS!!!
+; (defn right-column2 [config]
+;  [:div.blind.right
+;   {:ng-class "{open: opennextsteps}"
+;   :ng-mouseleave "shrinknextsteps()"
+;   :ng-mouseenter "expandnextsteps()"}
+;   [:div.contents-container
+;    [:div.previous-steps
+;     [:a {:ng-href "#"
+;         :ng-repeat "category in categories"
+;          :ng-controller "HistoryStepCtrl as stepCtrl"
+;          :ng-mouseenter "talktools(category)"}
+;     [:div.previous-step {:ng-class "{hot: step.id == s.id}"}
+;      [:div.summary
+;       [:span.badge.numbering "{{category.tools.length}}"]
+;       [:i.fa-2x {:class "{{category.icon}}"}]
+;       [:div "{{category.label}}"]]
+;      [:div.details {:ng-class "{transparent: !opennextsteps}"}
+;        [:ul
+;          [:li {:ng-repeat "tool in category.tools"} "{{tool}} is some useful tool"]]]]]]]])
+
+
+      (defn super-menu [config]
+        [:div.blind.right
+          {:ng-mouseleave "hidemenu()"
+            :ng-mouseenter "showmenu()"}
+          [:div.header
+            [:span.count "172"]
+            [:span.type "Genes"]]
+          [:div.main-menu
+          ;  [:div {:ng-repeat "category in categories"
+          ;   :ng-mouseover "showtools(category)"} "{{category}}"]
+          ; [:i.fa.fa-bar-chart.fa-2x]
+            [:ul
+             [:li {:ng-repeat "category in categories"
+                   :ng-mouseover "showtools(category)"}
+              [:a {:href "#"}
+                [:i.fa.fa-bar-chart.fa-2x]
+                [:span "{{category}}"]]]]
+          ]
+          [:div.sub-menu
+          {:ng-hide "!showsubmenu"}
+          ;  [:div {:ng-repeat "tool in tools"} "{{tool.ident}}"]
+           [:div.list-group.steps.expanded
+            [:next-step
+             {:ng-repeat "ns in nextSteps2"
+              :previous-step "step"
+              :append-step "appView.nextStep(data)"
+              :tool "ns.tool"
+              :service "ns.service"
+              :data "ns.data"}]]]])
+
 
 
 (defn right-column [config]
@@ -126,35 +188,7 @@
     [:div.panel-body {:ng-hide "nextSteps.length"}
      [:em "No steps available"]]]])
 
-(defn super-menu [config]
-  [:div.sidebar-right
-    {:ng-mouseleave "hidemenu()"
-      :ng-mouseenter "showmenu()"}
-    [:div.header
-      [:span.count "172"]
-      [:span.type "Genes"]]
-    [:div.main-menu
-    ;  [:div {:ng-repeat "category in categories"
-    ;   :ng-mouseover "showtools(category)"} "{{category}}"]
-    ; [:i.fa.fa-bar-chart.fa-2x]
-      [:ul
-       [:li {:ng-repeat "category in categories"
-             :ng-mouseover "showtools(category)"}
-        [:a {:href "#"}
-          [:i.fa.fa-bar-chart.fa-2x]
-          [:span "{{category}}"]]]]
-    ]
-    [:div.sub-menu
-    {:ng-hide "!showsubmenu"}
-    ;  [:div {:ng-repeat "tool in tools"} "{{tool.ident}}"]
-     [:div.list-group.steps.expanded
-      [:next-step
-       {:ng-repeat "ns in nextSteps2"
-        :previous-step "step"
-        :append-step "appView.nextStep(data)"
-        :tool "ns.tool"
-        :service "ns.service"
-        :data "ns.data"}]]]])
+
 
 
 (defn centre-column [config]
@@ -178,4 +212,4 @@
   (html [:div.container-fluid.history-view
          (apply vector :div.row.flex-row
           ;; L R C because of column re-ordering.
-          ((juxt left-column centre-column super-menu) config))]))
+          ((juxt left-column centre-column right-column2) config))]))

@@ -102,6 +102,7 @@
         "http://tools.intermine.org/**"
         "http://alexkalderimis.github.io/**"
         "http://intermine.github.io/**"
+        "http://duck/**"
         "http://intermine-tools.github.io/**"]
       :client-step-config {
         :show-list {
@@ -112,6 +113,16 @@
                                  :PreviewTrigger :click}
                      :ShowHistory false
                      :Style {:icons :fontawesome}}}
+
+      :web-tool-categories [
+        {:label "Homology" :icon "fa fa-tree" :tools [:tool1 :tool2 :tool3]}
+        {:label "Interactions" :icon "fa fa-share-alt" :tools [:tool1 :tool2 :tool3]}
+        {:label "Disease" :icon "fa fa-medkit" :tools [:tool1 :tool2 :tool3 :tool4 :tool5]}
+        {:label "Literature" :icon "fa fa-book" :tools [:tool1]}
+        {:label "Export" :icon "fa fa-share" :tools [:tool1 :tool2 :tool3 :tool4 :tool5 :tool6 :tool7 :tool8]}
+        {:label "Help" :icon "fa fa-question-circle" :tools [:beer]}
+        {:label "Other" :icon "fa fa-beer" :tools [:beer]}
+      ]
       :web-tools [ ;; Needs to be listed so we know what order these should be shown in.
                    :histories
                    :templates
@@ -121,15 +132,15 @@
                    [:new-query {:service "yeastmine"}]
                    [:upload-list {:service "flymine"}]
                    [:region-search {:service "flymine"}]
-                   [:region-search {:service "mousemine"}]
+                   [:region-search {:service "mousemine" :categories ["1" "2"]}]
                    :show-table ;; TODO: make the tools below autoconfigure...
                    :show-list  ;;  - these are not front page, so their order is not important.
                    :show-enrichment
                    :resolve-ids
                    :combine-lists
-                   [:convert-list {:category "CatA"}]
+                   [:convert-list {:category "Homology"}]
                    :list-templates
-                   [:export {:category "CatA"}]
+                   [:export {:category ["Export"]}]
                    :id-handler
                    :keyword-search ;; From resources/config - really must auto-configure this list...
                    ]
