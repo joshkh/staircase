@@ -21,8 +21,10 @@
   display: flex;
 }
 
-.transparent {
-  opacity: 0;
+
+.list-group-item {
+  border: none;
+  border-bottom: 1px rgb(164, 164, 164) solid;
 }
 
 .blind {
@@ -38,7 +40,7 @@
 
   &.right {
     right: 0;
-    text-align: right;
+    // text-align: right;
 
     &.open {
       width: @sz-blind-open;
@@ -60,65 +62,32 @@
 
   .contents-container {
 
+    .details {
+      transition: width ease 3s;
+      display: inline-block;
+      width: @sz-blind-open - @sz-blind-closed;
+      padding: 10px;
+      // border: 3px solid green;
+
+      &.right {
+        position: absolute;
+        right: @sz-blind-closed;
+        width: @sz-blind-open - @sz-blind-closed;
+        background: lighten(@clr-menu-bg, 5%);
+        background: white;
+        height: 100%;
+      }
+    }
+
     width: @sz-blind-open;
     height: 100%;
 
-    .next-steps {
-
-      display: flex;
-      flex-direction: row;
-      -webkit-align-content: stretch;
-      align-content: stretch;
-      height: 100%;
-
-      .categories {
-        display: flex;
-        flex-direction: column;
-        width: 100px;
-        // -webkit-flex: 1;
-        // flex:1;
-
-        .summary {
-          position: relative;
-          text-align: center;
-          display: inline-block;
-          width: @sz-blind-closed;
-          padding: 10px;
-
-          &:hover {
-            color: black;
-            background: lighten(@clr-menu-bg, 5%);
-          }
-
-          .numbering {
-            position: absolute;
-            left: 5px;
-            top: 5px;
-            background-color: transparent;
-            color: rgb(131, 128, 120);
-          }
-        }
-      }
-
-      .details {
-        display: flex;
-        flex-direction: column;
-        width: 300px;
-        background: lighten(@clr-menu-bg, 5%);
-        flex-grow: 1;
-        height: 100%;
-        -webkit-flex: 1;
-        flex:1;
-
-        .listitem {
-          min-height: 40px;
-          padding: 10px;
-        }
-      }
-
+    &.right {
+      position: absolute;
+      right: 0;
     }
 
-    .previous-steps {
+    .steps {
 
       list-style-type: none;
       padding: 0;
@@ -128,7 +97,15 @@
         color: inherit;
       }
 
+      &.right {
+        position: absolute;
+        right: 0;
+        height: 100%;
+      }
+
       .step {
+
+        z-index: -1;
 
         &:hover {
           color: black;
@@ -145,6 +122,8 @@
         }
 
 
+
+
         .summary {
           position: relative;
           text-align: center;
@@ -162,12 +141,6 @@
 
         }
 
-        .details {
-          transition: width ease 3s;
-          display: inline-block;
-          width: @sz-blind-open - @sz-blind-closed;
-          padding: 10px;
-        }
       }
     }
   }
@@ -176,4 +149,13 @@
 .highlighted {
   color: black;
   background: lighten(@clr-menu-bg, 5%);
+  background: white;
+}
+
+.transparent {
+  opacity: 0;
+}
+
+.step-header {
+  min-height: 50px;
 }

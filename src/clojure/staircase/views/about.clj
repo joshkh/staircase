@@ -9,7 +9,7 @@
     [:div.row
      [:div.col-md-8.col-md-offset-2
       [:h1
-       (image "/images/flattened-helix-right-128px.png")
+       (image "")
        (:project-title config)]]]
     [:div.row
      [:form.search-form.col-sm-6.col-sm-offset-3 (search-input config)]]
@@ -63,4 +63,3 @@
           [:td
            "This button restores the component to its orginal state, removing any filters you may have applied."]]]]
         ]]]]]))
-

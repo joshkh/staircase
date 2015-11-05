@@ -115,13 +115,42 @@
                      :Style {:icons :fontawesome}}}
 
       :web-tool-categories [
-        {:label "Homology" :icon "fa fa-tree" :tools [:tool1 :tool2 :tool3]}
-        {:label "Interactions" :icon "fa fa-share-alt" :tools [:tool1 :tool2 :tool3]}
-        {:label "Disease" :icon "fa fa-medkit" :tools [:tool1 :tool2 :tool3 :tool4 :tool5]}
-        {:label "Literature" :icon "fa fa-book" :tools [:tool1]}
-        {:label "Export" :icon "fa fa-share" :tools [:tool1 :tool2 :tool3 :tool4 :tool5 :tool6 :tool7 :tool8]}
-        {:label "Help" :icon "fa fa-question-circle" :tools [:beer]}
-        {:label "Other" :icon "fa fa-beer" :tools [:beer]}
+      {:label "Gene"
+       :icon "fa fa-tree"
+       :tools [:tool1 :tool2 :tool3]}
+        {:label "GO"
+         :icon "fa fa-tree"
+         :tools [:tool1 :tool2 :tool3]}
+         {:label "Expression"
+          :icon "fa fa-tree"
+          :tools [:tool1 :tool2 :tool3]}
+          {:label "Homologue"
+           :icon "fa fa-tree"
+           :tools [:tool1 :tool2 :tool3]}
+           {:label "Interactions"
+            :icon "fa fa-tree"
+            :tools [:tool1 :tool2 :tool3]}
+            {:label "Regulation"
+             :icon "fa fa-tree"
+             :tools [:tool1 :tool2 :tool3]}
+             {:label "Diseases"
+              :icon "fa fa-tree"
+              :tools [:tool1 :tool2 :tool3]}
+              {:label "Proteins"
+               :icon "fa fa-tree"
+               :tools [:tool1 :tool2 :tool3]}
+               {:label "Literature"
+                :icon "fa fa-tree"
+                :tools [:tool1 :tool2 :tool3]}
+                {:label "Pathways"
+                 :icon "fa fa-tree"
+                 :tools [:tool1 :tool2 :tool3]}
+        ; {:label "Interactions" :icon "fa fa-share-alt" :tools [:tool1 :tool2]}
+        ; {:label "Disease" :icon "fa fa-medkit" :tools [:tool1 :tool2 :tool3 :tool4 :tool5]}
+        ; {:label "Literature" :icon "fa fa-book" :tools [:tool1]}
+        ; {:label "Export" :icon "fa fa-share" :tools [:tool1 :tool2 :tool3 :tool4 :tool5 :tool6 :tool7 :tool8]}
+        ; {:label "Help" :icon "fa fa-question-circle" :tools [:help-tool]}
+        ; {:label "Beer" :icon "fa fa-beer" :tools [:beer-tool]}
       ]
       :web-tools [ ;; Needs to be listed so we know what order these should be shown in.
                    :histories

@@ -128,6 +128,7 @@ define (require) ->
       @scope.nextSteps ?= []
       @scope.items ?= {}
       @scope.categories ?= []
+      @scope.opennextsteps = false
 
       @scope.collapsed = true # Hide details in reduced real-estate view.
       @scope.state = {expanded: false, nextStepsCollapsed: true}
@@ -138,12 +139,17 @@ define (require) ->
       @mines = Mines.all()
 
       @scope.showtools = (val) =>
+
         # @scope.nextSteps2 = (tool for tool in @scope.nextTools when tool.category is val)
         console.log "SHOWING TOOLS"
         console.log @scope.nextSteps
         console.log "SCOPE.STEPS", @scope.steps;
         console.log "SCOPE.HISTORIES", @scope.steps;
-        if val isnt "Other"
+
+        val = val.label
+        console.log "VAL IS", val
+
+        if val isnt "Beer"
           @scope.nextSteps2 = (s for s in @scope.nextSteps when s.tool.category is val)
         else
           for item in @scope.nextSteps
@@ -178,11 +184,11 @@ define (require) ->
         @scope.openhistory = false
 
       @scope.expandnextsteps = =>
-        console.log "showing history"
+        console.log "showing next steps"
         @scope.opennextsteps = true
 
       @scope.shrinknextsteps = =>
-        console.log "hiding history"
+        console.log "hiding next steps"
         @scope.opennextsteps = false
 
 

@@ -80,36 +80,75 @@
   :ng-mouseleave "shrinkhistory()"
   :ng-mouseenter "expandhistory()"}
   [:div.contents-container
-   [:div.previous-steps
+   [:div.steps
+    [:a
+      [:div.step.hot
+       [:div.summary
+        [:div.step-header ""]]]]
     [:a {:ng-href "/history/{{history.id}}/{{steps.length - $index}}"
         :ng-repeat "s in steps | reverse"
          :ng-controller "HistoryStepCtrl as stepCtrl"}
-    [:div.step {:ng-class "{hot: step.id == s.id}"}
+    [:div.step
+      ; {:ng-class "{hot: step.id == s.id}"}
      [:div.summary
       [:span.badge.numbering "{{steps.indexOf(s) + 1}}"]
       [:i.fa.fa-cubes.fa-2x]
       [:div "{{s.title}}"]]
      [:div.details {:ng-class "{transparent: !openhistory}"} "{{s.description}}"]]]]]])
 
+
  (defn right-column2 [config]
   [:div.blind.right
    {:ng-class "{open: opennextsteps}"
    :ng-mouseleave "shrinknextsteps(); clearcc()"
-   :ng-mouseenter "expandnextsteps()"}
+  ;  :ng-mouseenter "expandnextsteps()"
+   }
    [:div.contents-container
-    [:div.next-steps
-     [:div.categories
-       [:a {:ng-href "#"
-           :ng-repeat "category in categories"
-            :ng-controller "HistoryStepCtrl as stepCtrl"
-            :ng-mouseenter "talktools(category)"}
-            [:div.summary {:ng-class "{highlighted: category.label == ccat.label}"}
-                  [:span.badge.numbering "{{category.tools.length}}"]
-                  [:i.fa-2x {:class "{{category.icon}}"}]
-                  [:div "{{category.label}}"]]]]
-      ; [:div.details
-      ;  [:div.listitem {:ng-repeat "tool in cattools"} "{{tool}}"]]
-       ]]])
+    [:div.steps.right {:ng-mouseenter "expandnextsteps()"}
+    [:div.details.right
+        [:div.listitem {:ng-repeat "tool in cattools"} "{{tool}}"]
+        [:next-step
+         {:ng-repeat "ns in nextSteps2"
+          :previous-step "step"
+          :append-step "appView.nextStep(data)"
+          :tool "ns.tool"
+          :service "ns.service"
+          :data "ns.data"}]
+        ]
+     [:a {:ng-href "#"
+         :ng-repeat "category in categories"
+         :ng-mouseenter "talktools(category); showtools(category)"}
+          ; :ng-controller "HistoryStepCtrl as stepCtrl"}
+     [:div.step {:ng-class "{hot: step.id == s.id}"}
+    ;  [:div.details {:ng-class "{transparent: !opennextsteps}"} "{{category.label}}"]
+    ;  [:div.details.transparent "{{s.label}}"]
+      [:div.summary {:ng-class "{highlighted: category.label == ccat.label}"}
+       [:span.badge.numbering "{{category.tools.length}}"]
+       [:i.fa-2x {:class "{{category.icon}}"}]
+       [:div "{{category.label}}"]]
+      ]]]]])
+
+ ; (defn right-column2 [config]
+ ;  [:div.blind.right
+ ;   {:ng-class "{open: opennextsteps}"
+ ;   :ng-mouseleave "shrinknextsteps(); clearcc()"
+ ;   :ng-mouseenter "expandnextsteps()"}
+ ;   [:div.contents-container
+ ;    [:div.next-steps
+ ;    [:div.details
+ ;     [:div.listitem {:ng-repeat "tool in cattools"} "{{tool}}"]
+ ;     ]
+ ;     [:div.categories
+ ;       [:a {:ng-href "#"
+ ;           :ng-repeat "category in categories"
+ ;            :ng-controller "HistoryStepCtrl as stepCtrl"
+ ;            :ng-mouseenter "talktools(category)"}
+ ;            [:div.summary {:ng-class "{highlighted: category.label == ccat.label}"}
+ ;                  [:span.badge.numbering "{{category.tools.length}}"]
+ ;                  [:i.fa-2x {:class "{{category.icon}}"}]
+ ;                  [:div "{{category.label}}"]]]]
+ ;
+ ;       ]]])
 
 
 

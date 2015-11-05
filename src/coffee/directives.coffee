@@ -357,6 +357,7 @@ define (require) ->
             init()
 
   interpolatedHeading = "<span>{{tool.heading}}</span>"
+  
 
   managedHeading = (src) -> """<ng-include src="'#{ src }'"></ng-include>"""
 
