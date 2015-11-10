@@ -1,5 +1,16 @@
-<div class="list-group-item" ng-if="listName">
-    <a ng-click="showTemplates()">
+{{category}}
+
+
+<div class="list-group-item lists">
+    <!-- <a ng-click="showTemplates()">
         Use {{listName}} in a structured search
-    </a>
+    </a> -->
+    <div class="list" ng-repeat="list in listnames">
+
+        <a ng-click="showTemplates()">
+            {{list}}
+        </a>
+
+    </div>
+
 </div>

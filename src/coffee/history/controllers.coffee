@@ -85,7 +85,7 @@ define (require) ->
             exporters.push {key, data, tool}
         otherSteps = (s for s in scope.nextSteps when not s.tool.handles 'items')
         scope.nextSteps = otherSteps.concat(exporters)
-        console.log "NEXT STEPS (items)", scope.nextSteps
+        console.log "^^^^^^ NEXT STEPS (items)", scope.nextSteps
 
 
       scope.$watch 'messages', (msgs) ->
@@ -140,21 +140,29 @@ define (require) ->
 
       @scope.showtools = (val) =>
 
+        console.log "CALLING SHOW TOOLS"
+
+        @scope.item1 = val
+
+        console.log "CATEGORIES", @scope.categories
         # @scope.nextSteps2 = (tool for tool in @scope.nextTools when tool.category is val)
-        console.log "SHOWING TOOLS"
-        console.log @scope.nextSteps
-        console.log "SCOPE.STEPS", @scope.steps;
-        console.log "SCOPE.HISTORIES", @scope.steps;
+        # console.log "SHOWING TOOLS", @scope.nextSteps
+        # console.log "SCOPE.STEPS", @scope.steps;
+        # console.log "SCOPE.HISTORIES", @scope.steps;
+        #
+        #
 
-        val = val.label
-        console.log "VAL IS", val
 
-        if val isnt "Beer"
-          @scope.nextSteps2 = (s for s in @scope.nextSteps when s.tool.category is val)
-        else
-          for item in @scope.nextSteps
-            console.log "val", item.tool.category
-          @scope.nextSteps2 = (s for s in @scope.nextSteps when not s.tool.category?)
+        @scope.nextSteps2 = (s for s in @scope.nextSteps when s.tool.ident in val.tools and !s.kind?)
+        console.log "CAN SHOW THESE......", @scope.nextSteps2
+
+
+
+
+        # else
+        #   for item in @scope.nextSteps
+        #     console.log "val", item.tool.category
+        #   @scope.nextSteps2 = (s for s in @scope.nextSteps when not s.tool.category?)
 
         # console.log "can show", tool
         console.log "next steps is now", @scope.nextSteps2
@@ -168,27 +176,21 @@ define (require) ->
         @scope.ccat = null
 
       @scope.showmenu = =>
-        console.log "showing menu"
         @scope.showsubmenu = true
 
       @scope.hidemenu = =>
-        console.log "hiding menu"
         @scope.showsubmenu = false
 
       @scope.expandhistory = =>
-        console.log "showing history"
         @scope.openhistory = true
 
       @scope.shrinkhistory = =>
-        console.log "hiding history"
         @scope.openhistory = false
 
       @scope.expandnextsteps = =>
-        console.log "showing next steps"
         @scope.opennextsteps = true
 
       @scope.shrinknextsteps = =>
-        console.log "hiding next steps"
         @scope.opennextsteps = false
 
 
@@ -204,7 +206,7 @@ define (require) ->
           .then ({data}) -> data.map toTool
           .then (providers) => @scope.providers = providers
       http.get('/tool-categories')
-          .then ({data}) => @scope.categories = data;
+          .then ({data}) => console.log "categories", data; @scope.categories = data;
 
     saveHistory: ->
       @scope.editing = false

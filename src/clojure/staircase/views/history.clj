@@ -104,14 +104,18 @@
   ;  :ng-mouseenter "expandnextsteps()"
    }
    [:div.contents-container
+   [:div.step.hot
+    [:div.summary
+     [:div.step-header ""]]]
     [:div.steps.right {:ng-mouseenter "expandnextsteps()"}
     [:div.details.right
-        [:div.listitem {:ng-repeat "tool in cattools"} "{{tool}}"]
+        ; [:div.listitem {:ng-repeat "tool in cattools"} "{{tool}}"]
         [:next-step
          {:ng-repeat "ns in nextSteps2"
           :previous-step "step"
           :append-step "appView.nextStep(data)"
           :tool "ns.tool"
+          :category "ccat"
           :service "ns.service"
           :data "ns.data"}]
         ]

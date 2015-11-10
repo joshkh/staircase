@@ -85,14 +85,14 @@
       :web-max-age ~(* 30 24 60 60)
       :web-contacts [["fa-github" "https://github.com/alexkalderimis/staircase" "GitHub"]]
       :web-services {
-        "flymine" "http://beta.flymine.org/beta/service"
+        "flymine-beta" "http://beta.flymine.org/beta/service"
         "zfin" "http://www.zebrafishmine.org/service"
         "yeastmine" "http://yeastmine.yeastgenome.org/yeastmine/service"
         "mousemine" "http://www.mousemine.org/mousemine/service"}
       ;; The section below should be replaced by pulling these values from branding.
       ;; and ultimately by a template based solution.
       :web-service-meta {
-                    "flymine"   {:color "palette-5tone1" :covers ["D. melanogaster"]}
+                    "flymine-beta"   {:color "palette-5tone1" :covers ["D. melanogaster"]}
                     "zfin"      {:color "palette-5tone2" :covers ["D. rerio"]}
                     "mousemine" {:color "palette-5tone3" :covers ["M. musculus"]}
                     "yeastmine" {:color "palette-5tone4" :covers ["S. cerevisiae"]}}
@@ -115,36 +115,60 @@
                      :Style {:icons :fontawesome}}}
 
       :web-tool-categories [
-      {:label "Gene"
-       :icon "fa fa-tree"
-       :tools [:tool1 :tool2 :tool3]}
-        {:label "GO"
-         :icon "fa fa-tree"
-         :tools [:tool1 :tool2 :tool3]}
-         {:label "Expression"
-          :icon "fa fa-tree"
-          :tools [:tool1 :tool2 :tool3]}
-          {:label "Homologue"
-           :icon "fa fa-tree"
-           :tools [:tool1 :tool2 :tool3]}
-           {:label "Interactions"
-            :icon "fa fa-tree"
-            :tools [:tool1 :tool2 :tool3]}
-            {:label "Regulation"
-             :icon "fa fa-tree"
-             :tools [:tool1 :tool2 :tool3]}
-             {:label "Diseases"
-              :icon "fa fa-tree"
-              :tools [:tool1 :tool2 :tool3]}
-              {:label "Proteins"
-               :icon "fa fa-tree"
-               :tools [:tool1 :tool2 :tool3]}
-               {:label "Literature"
-                :icon "fa fa-tree"
-                :tools [:tool1 :tool2 :tool3]}
-                {:label "Pathways"
-                 :icon "fa fa-tree"
-                 :tools [:tool1 :tool2 :tool3]}
+        {:label "Gene Ontology"
+        :icon "fa fa-th-large"
+        :tools [:list-templates]}
+        {:label "Pathways"
+        :icon "fa fa-th-large"
+        :tools [:list-templates]}
+        {:label "Protein Domain"
+        :icon "fa fa-th-large"
+        :tools [:tool1 :tool2 :tool3]}
+        {:label "Literature"
+        :icon "fa fa-th-large"
+        :tools [:tool1 :tool2 :tool3]}
+        {:label "Expression"
+        :icon "fa fa-th-large"
+        :tools [:list-templates]}
+        {:label "Homology"
+        :icon "fa fa-th-large"
+        :tools [:list-templates]}
+        {:label "Interactions"
+        :icon "fa fa-th-large"
+        :tools [:tool1 :tool2 :tool3]}
+        {:label "Regulation"
+        :icon "fa fa-th-large"
+        :tools [:list-templates]}
+        {:label "Diseases"
+        :icon "fa fa-th-large"
+        :tools [:tool1 :tool2 :tool3]}
+        {:label "Genomics"
+        :icon "fa fa-th-large"
+        :tools [:tool1 :tool2 :tool3]}
+        {:label "Proteins"
+        :icon "fa fa-th-large"
+        :tools [:list-templates]}
+        {:label "Misc"
+        :icon "fa fa-th-large"
+        :tools [:tool1 :tool2 :tool3]}
+        ; {:label "Regulation"
+        ; :icon "fa fa-tree"
+        ; :tools [:tool1 :show "Expression" :tool2 :tool3]}
+        ; {:label "Diseases"
+        ; :icon "fa fa-tree"
+        ; :tools [:tool1 :tool2 :tool3]}
+        ; {:label "Proteins"
+        ; :icon "fa fa-tree"
+        ; :tools [:tool1 :tool2 :tool3]}
+        ; {:label "Literature"
+        ; :icon "fa fa-tree"
+        ; :tools [:tool1 :tool2 :tool3]}
+        ; {:label "Pathways"
+        ; :icon "fa fa-tree"
+        ; :tools [:tool1 :tool2 :tool3]}
+        ; {:label "Other"
+        ; :icon "fa fa-beer"
+        ; :tools [:list-templates]}
         ; {:label "Interactions" :icon "fa fa-share-alt" :tools [:tool1 :tool2]}
         ; {:label "Disease" :icon "fa fa-medkit" :tools [:tool1 :tool2 :tool3 :tool4 :tool5]}
         ; {:label "Literature" :icon "fa fa-book" :tools [:tool1]}
@@ -155,12 +179,12 @@
       :web-tools [ ;; Needs to be listed so we know what order these should be shown in.
                    :histories
                    :templates
-                   [:choose-list {:service "flymine"}]
+                   [:choose-list {:service "flymine-beta"}]
                    [:choose-list {:service "mousemine"}]
-                   [:new-query {:service "flymine"}]
+                   [:new-query {:service "flymine-beta"}]
                    [:new-query {:service "yeastmine"}]
-                   [:upload-list {:service "flymine"}]
-                   [:region-search {:service "flymine"}]
+                   [:upload-list {:service "flymine-beta"}]
+                   [:region-search {:service "flymine-beta"}]
                    [:region-search {:service "mousemine" :categories ["1" "2"]}]
                    :show-table ;; TODO: make the tools below autoconfigure...
                    :show-list  ;;  - these are not front page, so their order is not important.
