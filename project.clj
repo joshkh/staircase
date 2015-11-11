@@ -132,7 +132,7 @@
         :tools [:list-templates]}
         {:label "Homology"
         :icon "fa fa-th-large"
-        :tools [:list-templates]}
+        :tools [:list-templates :convert-list]}
         {:label "Interactions"
         :icon "fa fa-th-large"
         :tools [:tool1 :tool2 :tool3]}

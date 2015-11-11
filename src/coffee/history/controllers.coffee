@@ -77,23 +77,23 @@ define (require) ->
       scope = @scope
 
       scope.$watchCollection 'items', ->
-
-        exporters = []
-        # debugger
-        for tool in scope.nextTools when tool.handles 'items'
-          for key, data of scope.items when data.ids.length
-            exporters.push {key, data, tool}
-        otherSteps = (s for s in scope.nextSteps when not s.tool.handles 'items')
-        scope.nextSteps = otherSteps.concat(exporters)
-        console.log "^^^^^^ NEXT STEPS (items)", scope.nextSteps
+      #
+      #   exporters = []
+      #   # debugger
+      #   for tool in scope.nextTools when tool.handles 'items'
+      #     for key, data of scope.items when data.ids.length
+      #       exporters.push {key, data, tool}
+      #   otherSteps = (s for s in scope.nextSteps when not s.tool.handles 'items')
+      #   scope.nextSteps = otherSteps.concat(exporters)
+      #   console.log "^^^^^^ NEXT STEPS (items)", scope.nextSteps
 
 
       scope.$watch 'messages', (msgs) ->
 
-        handlers = L.values msgs
-        otherSteps = (s for s in scope.nextSteps when s.kind isnt 'msg')
-        scope.nextSteps = otherSteps.concat(handlers)
-        console.log "NEXT STEPS (msg)", scope.nextSteps
+        # handlers = L.values msgs
+        # otherSteps = (s for s in scope.nextSteps when s.kind isnt 'msg')
+        # scope.nextSteps = otherSteps.concat(handlers)
+        # console.log "NEXT STEPS (msg)", scope.nextSteps
 
       scope.$watch 'categories', (cats) ->
         # debugger
@@ -103,10 +103,13 @@ define (require) ->
       scope.$watch 'list', ->
         listHandlers = []
         for tool in scope.nextTools when tool.handles 'list'
-          listHandlers.push {tool, data: scope.list}
-        otherSteps = (s for s in scope.nextSteps when not s.tool.handles 'list')
-        console.log "listHandlers", listHandlers
-        scope.nextSteps = otherSteps.concat(listHandlers)
+          for category in scope.categories
+            if tool.ident in category.tools
+              listHandlers.push {tool, category: category, data: scope.list}
+        # otherSteps = (s for s in scope.nextSteps when not s.tool.handles 'list')
+        # scope.nextSteps = otherSteps.concat(listHandlers)
+        scope.nextSteps = listHandlers
+        console.log "NEXT STEPS IS NOW", scope.nextSteps
 
         # categories = []
         # scope.nextSteps2 = []
@@ -201,7 +204,7 @@ define (require) ->
           http.get('/tools/' + tool)
                 .then (({data}) => @scope.tool = data), toolNotFound
           http.get('/tools', params: {capabilities: 'next'})
-              .then ({data}) => @scope.nextTools = data.map toTool
+              .then ({data}) => debugger; @scope.nextTools = data.map toTool
       http.get('/tools', params: {capabilities: 'provider'})
           .then ({data}) -> data.map toTool
           .then (providers) => @scope.providers = providers
@@ -230,6 +233,7 @@ define (require) ->
       o[key] = value
 
     hasSomething: (what, data, key) ->
+      # debugger
       {scope, console, to, Q, mines} = @
       if what is 'list'
         return to -> scope.list = data
