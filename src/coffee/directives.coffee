@@ -536,11 +536,12 @@ define (require) ->
       tool: '='
       service: '=?'
       category: '='
+      
     link: (scope, element, attrs) ->
 
       scope.$watch 'tool.headingURI', ->
 
-        console.log "THIS TOOL IS", @
+        # console.log "THIS TOOL IS", @
 
         if scope.tool
 

@@ -98,9 +98,12 @@ define (require) ->
       scope.$watch 'categories', (cats) ->
         # debugger
 
+      scope.$watch 'ccat', (val) -> console.log "CCAT is now", val
 
 
-      scope.$watch 'list', ->
+
+      scope.$watch 'list', (val) ->
+        console.log "LIST IS", val
         listHandlers = []
         for tool in scope.nextTools when tool.handles 'list'
           for category in scope.categories
@@ -108,8 +111,8 @@ define (require) ->
               listHandlers.push {tool, category: category, data: scope.list}
         # otherSteps = (s for s in scope.nextSteps when not s.tool.handles 'list')
         # scope.nextSteps = otherSteps.concat(listHandlers)
-        scope.nextSteps = listHandlers
-        console.log "NEXT STEPS IS NOW", scope.nextSteps
+        scope.nextSteps2 = listHandlers
+        console.log "NEXT STEPS IS NOW", scope.nextSteps2
 
         # categories = []
         # scope.nextSteps2 = []
@@ -143,11 +146,13 @@ define (require) ->
 
       @scope.showtools = (val) =>
 
-        console.log "CALLING SHOW TOOLS"
+        # console.log "CALLING SHOW TOOLS"
 
-        @scope.item1 = val
+        @scope.ccat = val
 
-        console.log "CATEGORIES", @scope.categories
+        # @scope.item1 = val
+
+        # console.log "CATEGORIES", @scope.categories
         # @scope.nextSteps2 = (tool for tool in @scope.nextTools when tool.category is val)
         # console.log "SHOWING TOOLS", @scope.nextSteps
         # console.log "SCOPE.STEPS", @scope.steps;
@@ -156,8 +161,8 @@ define (require) ->
         #
 
 
-        @scope.nextSteps2 = (s for s in @scope.nextSteps when s.tool.ident in val.tools and !s.kind?)
-        console.log "CAN SHOW THESE......", @scope.nextSteps2
+        # @scope.nextSteps3 = (s for s in @scope.nextSteps when s.tool.ident in val.tools and !s.kind?)
+        # console.log "CAN SHOW THESE......", @scope.nextSteps2
 
 
 
@@ -168,12 +173,13 @@ define (require) ->
         #   @scope.nextSteps2 = (s for s in @scope.nextSteps when not s.tool.category?)
 
         # console.log "can show", tool
-        console.log "next steps is now", @scope.nextSteps2
+        # console.log "next steps is now", @scope.nextSteps3
+        # console.log "scope cateogyr is", @scope.ccat
 
-      @scope.talktools = (cat) =>
-        @scope.cattools = cat.tools
-        @scope.ccat = cat
-        console.log "scope cat is", @scope.ccat
+      # @scope.talktools = (cat) =>
+      #   @scope.cattools = cat.tools
+      #   @scope.ccat = cat
+      #   console.log "scope cat is", @scope.ccat
 
       @scope.clearcc = () =>
         @scope.ccat = null
@@ -204,7 +210,7 @@ define (require) ->
           http.get('/tools/' + tool)
                 .then (({data}) => @scope.tool = data), toolNotFound
           http.get('/tools', params: {capabilities: 'next'})
-              .then ({data}) => debugger; @scope.nextTools = data.map toTool
+              .then ({data}) => @scope.nextTools = data.map toTool
       http.get('/tools', params: {capabilities: 'provider'})
           .then ({data}) -> data.map toTool
           .then (providers) => @scope.providers = providers

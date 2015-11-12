@@ -105,29 +105,27 @@
    }
    [:div.contents-container
    [:div.step.hot
-    [:div.summary
-     [:div.step-header ""]]]
+    [:div.summary [:div.step-header ""]]]
     [:div.steps.right {:ng-mouseenter "expandnextsteps()"}
     [:div.details.right
-        ; [:div.listitem {:ng-repeat "tool in cattools"} "{{tool}}"]
         [:next-step
          {:ng-repeat "ns in nextSteps2"
           :previous-step "step"
           :append-step "appView.nextStep(data)"
           :tool "ns.tool"
-          :category "ccat"
+          :category "ns.category"
           :service "ns.service"
-          :data "ns.data"}]
-        ]
+          :ng-show "ns.category.label==ccat.label"
+          :data "ns.data"}]]
      [:a {:ng-href "#"
          :ng-repeat "category in categories"
-         :ng-mouseenter "talktools(category); showtools(category)"}
+         :ng-mouseenter "showtools(category)"}
           ; :ng-controller "HistoryStepCtrl as stepCtrl"}
-     [:div.step {:ng-class "{hot: step.id == s.id}"}
+     [:div.step.empty {:ng-class "{hot: step.id == s.id}"}
     ;  [:div.details {:ng-class "{transparent: !opennextsteps}"} "{{category.label}}"]
     ;  [:div.details.transparent "{{s.label}}"]
       [:div.summary {:ng-class "{highlighted: category.label == ccat.label}"}
-       [:span.badge.numbering "{{category.tools.length}}"]
+      ;  [:span.badge.numbering "{{category.tools.length}}"]
        [:i.fa-2x {:class "{{category.icon}}"}]
        [:div "{{category.label}}"]]
       ]]]]])

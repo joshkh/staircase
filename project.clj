@@ -116,40 +116,40 @@
 
       :web-tool-categories [
         {:label "Gene Ontology"
-        :icon "fa fa-th-large"
+        :icon "fa fa-amazon"
         :tools [:list-templates]}
         {:label "Pathways"
-        :icon "fa fa-th-large"
+        :icon "fa fa-code-fork"
         :tools [:list-templates]}
         {:label "Protein Domain"
-        :icon "fa fa-th-large"
+        :icon "fa fa-bar-chart"
         :tools [:tool1 :tool2 :tool3]}
         {:label "Literature"
-        :icon "fa fa-th-large"
+        :icon "fa fa-book"
         :tools [:tool1 :tool2 :tool3]}
         {:label "Expression"
-        :icon "fa fa-th-large"
+        :icon "fa fa-briefcase"
         :tools [:list-templates]}
         {:label "Homology"
-        :icon "fa fa-th-large"
-        :tools [:list-templates :convert-list]}
+        :icon "fa fa-tree"
+        :tools [:convert-list :list-templates]}
         {:label "Interactions"
-        :icon "fa fa-th-large"
+        :icon "fa fa-share-alt"
         :tools [:tool1 :tool2 :tool3]}
         {:label "Regulation"
-        :icon "fa fa-th-large"
+        :icon "fa fa-gears"
         :tools [:list-templates]}
         {:label "Diseases"
-        :icon "fa fa-th-large"
+        :icon "fa fa-medkit"
         :tools [:tool1 :tool2 :tool3]}
         {:label "Genomics"
-        :icon "fa fa-th-large"
+        :icon "fa fa-map-o"
         :tools [:tool1 :tool2 :tool3]}
         {:label "Proteins"
-        :icon "fa fa-th-large"
+        :icon "fa fa-send"
         :tools [:list-templates]}
-        {:label "Misc"
-        :icon "fa fa-th-large"
+        {:label "Function"
+        :icon "fa fa-cube"
         :tools [:tool1 :tool2 :tool3]}
         ; {:label "Regulation"
         ; :icon "fa fa-tree"

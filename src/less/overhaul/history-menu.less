@@ -5,6 +5,7 @@
 
 @clr-menu-bg: #e7e7e7;
 @clr-menu-bg: white;
+// @clr-menu-bg: #F8F8F8;
 @clr-menu-bg2: hsla(201, 60%, 65%, 1);
 
 
@@ -16,6 +17,11 @@
 @sz-blind-open: 300px;
 
 
+.heading-text {
+  text-transform: uppercase;
+  font-size: 0.8em;
+  font-weight: bold;
+}
 
 
 .folded {
@@ -23,9 +29,10 @@
 }
 
 
+
 .list-group-item {
   border: none;
-  border-bottom: 1px rgb(164, 164, 164) solid;
+  // border-bottom: 1px rgb(164, 164, 164) solid;
 }
 
 .blind {
@@ -94,12 +101,12 @@
         width: @sz-blind-open - @sz-blind-closed;
         background: lighten(@clr-menu-bg, 5%);
         background: white;
-        height: 100%;
+        // height: 100%;
       }
     }
 
     width: @sz-blind-open;
-    height: 100%;
+    // height: 100%;
 
     &.right {
       position: absolute;
@@ -119,7 +126,7 @@
       &.right {
         position: absolute;
         right: 0;
-        height: 100%;
+        // height: 100%;
       }
 
       .step {
@@ -162,4 +169,15 @@
 
 .step-header {
   min-height: 50px;
+}
+
+.empty {
+  color: #D3D3D3;
+}
+
+
+/* when showing the thing */
+.ng-show-remove      {
+  -webkit-animation:0.5s flipInX ease;
+  animation:0.5s flipInX ease;
 }
