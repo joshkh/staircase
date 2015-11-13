@@ -1,23 +1,46 @@
-define ['lodash', './dialogue', 'text!./template-dialogue.html'], (L, Ctrl, View) ->
+define ['lodash', './dialogue', 'text!./template-dialogue.html', './template-controller'], (L, Ctrl, View, tc) ->
 
   controller = (console, scope, Modals, Q, connectTo) ->
+
     scope.listName = scope.data.name
     scope.ids = scope.data.ids
     scope.type = scope.data.type
     scope.service = root: scope.data.root ? scope.data.service.root
     connect = connectTo scope.service.root
     scope.listnames = []
+    scope.templatecontroller = tc
+    console.log tc
+
 
     getParsedTitle = ({title, name}) -> (title or name).replace /.*--> /, ''
 
 
 
     if scope.listName?
-      connect.then (s) => s.fetchTemplates().then (ts) =>
+      connect.then (s) -> s.fetchTemplates().then (ts) ->
         for listname, values of ts
           if "im:aspect:#{scope.category.label}" in values.tags
-            if scope.listnames.length < 5
-              scope.listnames.push getParsedTitle values
+              do (scope, listname, values) ->
+                values.readable = getParsedTitle values
+                scope.listnames.push values
+                do (values) ->
+                  s.count(values).then (res) ->
+                    scope.$apply -> values.count = res
+
+              # if scope.listnames.length < 5
+
+    scope.runTemplate = (selectedTemplate) ->
+      step =
+        title: "Structured Search"
+        description: "Using List #{ selectedTemplate.name } over #{ scope.listName }"
+        tool: 'show-table'
+        data:
+          service:
+            root: scope.service.root
+          query: selectedTemplate
+      debugger
+      scope.appendStep data: step
+
 
     scope.showTemplates = ->
       console.log "showing templates at #{ scope.service.root }"

@@ -76,7 +76,7 @@ define (require) ->
     startWatching: ->
       scope = @scope
 
-      scope.$watchCollection 'items', ->
+      # scope.$watchCollection 'items', ->
       #
       #   exporters = []
       #   # debugger
@@ -89,8 +89,10 @@ define (require) ->
 
 
       scope.$watch 'messages', (msgs) ->
+        # console.log "MESSAGES", msgs
 
-        # handlers = L.values msgs
+        handlers = L.values msgs
+        console.log "MESSAGE HANDLERS", handlers
         # otherSteps = (s for s in scope.nextSteps when s.kind isnt 'msg')
         # scope.nextSteps = otherSteps.concat(handlers)
         # console.log "NEXT STEPS (msg)", scope.nextSteps
@@ -99,6 +101,16 @@ define (require) ->
         # debugger
 
       scope.$watch 'ccat', (val) -> console.log "CCAT is now", val
+
+      scope.$watchCollection 'items', (items) ->
+        console.log "ITEMS", items
+        # debugger
+        exporters = []
+        for tool in scope.nextTools when tool.handles 'items'
+          for key, data of scope.items when data.ids.length
+            exporters.push {key, data, tool}
+        otherSteps = (s for s in scope.nextSteps when not s.tool.handles 'items')
+        scope.nextSteps = otherSteps.concat(exporters)
 
 
 

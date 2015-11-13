@@ -6,7 +6,7 @@ define [], ->
     if data.objectIds?
       category = previousStep.data.request?.extra
       makeList.fromIds(data, category).then (list) ->
-        title: "Created List"
+        title: "Created List3"
         description: list.name
         tool: 'show-list'
         data:
@@ -24,7 +24,7 @@ define [], ->
           service: data.service
     else if query = (data.request?.query ? data.query)
       makeList.fromQuery(query, data.service).then (list) ->
-        title: "Created List"
+        title: "Created List4"
         description: list.name
         tool: 'show-list'
         data:
