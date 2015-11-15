@@ -14,9 +14,50 @@
     [:div.row
      [:form.search-form.col-sm-6.col-sm-offset-3 (search-input config)]]
     [:div.row
-     [:p "The data-flow interface to InterMine data-warehouses,
+     [:p {:antiscroll "autoHide:false"} "The data-flow interface to InterMine data-warehouses,
          providing an extensible, programmable work-bench for
          scientists."]]
+
+    ; [:div.some-container.fixedheight
+    ; [:scrollable
+    ;   [:p "Hello. This is a paragraph tag. Thanks for reading, I guess."]
+    ;   [:p "Hello. This is a paragraph tag. Thanks for reading, I guess."]
+    ;   [:p "Hello. This is a paragraph tag. Thanks for reading, I guess."]
+    ;   [:p "Hello. This is a paragraph tag. Thanks for reading, I guess."]
+    ;   [:p "Hello. This is a paragraph tag. Thanks for reading, I guess."]
+    ;   [:p "Hello. This is a paragraph tag. Thanks for reading, I guess."]
+    ;   [:p "Hello. This is a paragraph tag. Thanks for reading, I guess."]
+    ;   [:p "Hello. This is a paragraph tag. Thanks for reading, I guess."]
+    ;   [:p "Hello. This is a paragraph tag. Thanks for reading, I guess."]
+    ;   [:p "Hello. This is a paragraph tag. Thanks for reading, I guess."]
+    ;   [:p "Hello. This is a paragraph tag. Thanks for reading, I guess."]]]
+    [:div.row
+     [:table.fixedheight {:scrollable ""}
+      [:tr [:td "test"] [:td "test"] [:td "test"] [:td "test"] [:td "test"]]
+      [:tr [:td "test"] [:td "test"] [:td "test"] [:td "test"] [:td "test"]]
+      [:tr [:td "test"] [:td "test"] [:td "test"] [:td "test"] [:td "test"]]
+      [:tr [:td "test"] [:td "test"] [:td "test"] [:td "test"] [:td "test"]]
+      [:tr [:td "test"] [:td "test"] [:td "test"] [:td "test"] [:td "test"]]
+      [:tr [:td "test"] [:td "test"] [:td "test"] [:td "test"] [:td "test"]]
+      [:tr [:td "test"] [:td "test"] [:td "test"] [:td "test"] [:td "test"]]
+      [:tr [:td "test"] [:td "test"] [:td "test"] [:td "test"] [:td "test"]]
+      [:tr [:td "test"] [:td "test"] [:td "test"] [:td "test"] [:td "test"]]
+      [:tr [:td "test"] [:td "test"] [:td "test"] [:td "test"] [:td "test"]]]]
+
+      [:div.somewrapper {:scrollable ""}
+       [:div
+        [:p "This is a test. Thanks"]
+        [:p "This is a test. Thanks"]
+        [:p "This is a test. Thanks"]
+        [:p "This is a test. Thanks"]
+        [:p "This is a test. Thanks"]
+        [:p "This is a test. Thanks"]
+        [:p "This is a test. Thanks"]]]
+
+    [:p "something is above here"]
+
+
+
     ]])
 
 (defn snippet [config]

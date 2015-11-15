@@ -8,6 +8,7 @@ define (require) ->
   Channel = require 'jschannel'
   jQuery = require 'jquery'
 
+
   require 'services'
 
   # Used by drag/drop directives for interacting with native drag and drop API.
@@ -277,7 +278,7 @@ define (require) ->
     replace: true
     template: """
       <div class="panel-body">
-        <iframe is-seamless="tool.seamless" src="{{tool.src}}" width="100%">
+        <iframe scrollable is-seamless="tool.seamless" src="{{tool.src}}" width="100%">
       </div>
     """
     link: (scope, element, attrs) ->
@@ -536,7 +537,7 @@ define (require) ->
       tool: '='
       service: '=?'
       category: '='
-      
+
     link: (scope, element, attrs) ->
 
       scope.$watch 'tool.headingURI', ->

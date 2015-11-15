@@ -20,6 +20,11 @@ define (require, exports, module) ->
   require 'controllers'
   config = require 'json!/api/v1/client-config'
   ga     = require 'analytics'
+  # require 'angular-antiscroll'
+  # ns = require 'nanoscroller'
+  require 'angular-nanoscroller'
+
+
   # require 'perfect_scrollbar'
 
   # debugger
@@ -42,10 +47,16 @@ define (require, exports, module) ->
     'LocalStorageModule',
     'headroom',
     'xeditable',
-    'cgNotify'
+    'cgNotify',
+    # 'antiscroll',
+    'sun.scrollable'
+    # 'sun.scrollable'
     # 'perfect_scrollbar'
     # 'perfectScrollbarJquery'
   ]
+
+  console.log "steps is", Steps
+  console.log "jquery is", jQuery
 
   # debugger;
 

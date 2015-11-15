@@ -31,6 +31,7 @@
           (staircase.views.forms/label-input-pair "history.title"))
    (apply vector
           :div.panel-body
+          [:p "test"]
           [:p [:small [:em "{{history.created_at | roughDate }}"]]]
           (staircase.views.forms/label-input-pair "history.description"))
    [:div.flex-row.stretched
@@ -78,7 +79,8 @@
  [:div.blind.left
   {:ng-class "{open: openhistory}"
   :ng-mouseleave "shrinkhistory()"
-  :ng-mouseenter "expandhistory()"}
+  :ng-mouseenter "expandhistory()"
+  :scrollable ""}
   [:div.contents-container
    [:div.steps
     [:a
@@ -101,6 +103,7 @@
   [:div.blind.right
    {:ng-class "{open: opennextsteps}"
    :ng-mouseleave "shrinknextsteps(); clearcc()"
+   :scrollable ""
   ;  :ng-mouseenter "expandnextsteps()"
    }
    [:div.contents-container

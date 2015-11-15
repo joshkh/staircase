@@ -66,7 +66,6 @@
 
 (defn get-categories
   [config]
-  (println "GETTING CATEGORIES")
   (:tool-categories config))
 
 (defn get-tools
