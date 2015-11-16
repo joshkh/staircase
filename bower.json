@@ -39,5 +39,8 @@
     "angular-perfect-scrollbar": "~0.0.4",
     "angular-antiscroll": "*",
     "angular-nanoscroller": "~0.2.1"
+  },
+  "resolutions": {
+    "jquery": "2.1.4"
   }
 }
