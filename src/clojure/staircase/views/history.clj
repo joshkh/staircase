@@ -86,7 +86,7 @@
     [:a
       [:div.step.hot
        [:div.summary
-        [:div.step-header ""]]]]
+        [:div.step-header "Previous Steps"]]]]
     [:a {:ng-href "/history/{{history.id}}/{{steps.length - $index}}"
         :ng-repeat "s in steps | reverse"
          :ng-controller "HistoryStepCtrl as stepCtrl"}
@@ -104,11 +104,10 @@
    {:ng-class "{open: opennextsteps}"
    :ng-mouseleave "shrinknextsteps(); clearcc()"
    :scrollable ""
-  ;  :ng-mouseenter "expandnextsteps()"
    }
    [:div.contents-container
    [:div.step.hot
-    [:div.summary [:div.step-header ""]]]
+    [:div.summary [:div.step-header "Using {{list.size}} {{list.type}}(s)"]]]
     [:div.steps.right {:ng-mouseenter "expandnextsteps()"}
     [:div.details.right
         [:next-step

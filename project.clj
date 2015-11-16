@@ -88,7 +88,8 @@
         "flymine-beta" "http://beta.flymine.org/beta/service"
         "zfin" "http://www.zebrafishmine.org/service"
         "yeastmine" "http://yeastmine.yeastgenome.org/yeastmine/service"
-        "mousemine" "http://www.mousemine.org/mousemine/service"}
+        "mousemine" "http://www.mousemine.org/mousemine/service"
+        "human" "http://www.humanmine.org/humanmineokay/service"}
       ;; The section below should be replaced by pulling these values from branding.
       ;; and ultimately by a template based solution.
       :web-service-meta {
@@ -116,7 +117,7 @@
 
       :web-tool-categories [
         {:label "Gene Ontology"
-        :icon "fa fa-amazon"
+        :icon "fa fa-database"
         :tools [:list-templates]}
         {:label "Pathways"
         :icon "fa fa-code-fork"
@@ -143,7 +144,7 @@
         :icon "fa fa-medkit"
         :tools [:tool1 :tool2 :tool3]}
         {:label "Genomics"
-        :icon "fa fa-map-o"
+        :icon "fa fa-heart"
         :tools [:tool1 :tool2 :tool3]}
         {:label "Proteins"
         :icon "fa fa-send"

@@ -25,9 +25,6 @@ define (require) ->
     serviceStamp: 'serviceStamp'
     notify: 'notify'
 
-
-
-
   # Test to see if two strings overlap.
   overlaps = (x, y) -> x && y && (x.indexOf(y) >= 0 || y.indexOf(x) >= 0)
 
@@ -100,7 +97,7 @@ define (require) ->
       scope.$watch 'categories', (cats) ->
         # debugger
 
-      scope.$watch 'ccat', (val) -> console.log "CCAT is now", val
+      # scope.$watch 'ccat', (val) -> console.log "CCAT is now", val
 
       scope.$watchCollection 'items', (items) ->
         console.log "ITEMS", items
@@ -114,17 +111,29 @@ define (require) ->
 
 
 
-      scope.$watch 'list', (val) ->
-        console.log "LIST IS", val
-        listHandlers = []
-        for tool in scope.nextTools when tool.handles 'list'
-          for category in scope.categories
-            if tool.ident in category.tools
-              listHandlers.push {tool, category: category, data: scope.list}
-        # otherSteps = (s for s in scope.nextSteps when not s.tool.handles 'list')
-        # scope.nextSteps = otherSteps.concat(listHandlers)
-        scope.nextSteps2 = listHandlers
-        console.log "NEXT STEPS IS NOW", scope.nextSteps2
+      scope.$watch 'list', (val) =>
+
+        console.log "previous steps", @scope.steps
+
+        if val?
+          # console.log "connectTo is", @connectTo
+          root = scope.step.data.service.root
+          connect = @connectTo scope.step.data.service.root
+          connect.then (s) ->
+            s.fetchList(scope.step.data.listName).then (res) ->
+              scope.list.size = res.size
+
+
+          # console.log "LIST IS", val
+          listHandlers = []
+          for tool in scope.nextTools when tool.handles 'list'
+            for category in scope.categories
+              if tool.ident in category.tools
+                listHandlers.push {tool, category: category, data: scope.list}
+          # otherSteps = (s for s in scope.nextSteps when not s.tool.handles 'list')
+          # scope.nextSteps = otherSteps.concat(listHandlers)
+          scope.nextSteps2 = listHandlers
+          # console.log "NEXT STEPS IS NOW", scope.nextSteps2
 
         # categories = []
         # scope.nextSteps2 = []
@@ -137,7 +146,7 @@ define (require) ->
         # scope.categories = categories
 
     init: ->
-      {Histories, Mines, params, http} = @
+      {Histories, Mines, params, http, connectTo} = @
 
       # See below for data fetching to fill these.
       @scope.nextTools ?= []
@@ -155,6 +164,8 @@ define (require) ->
       @scope.steps = Histories.getSteps id: params.id
       @scope.step = Histories.getStep id: params.id, idx: @currentCardinal - 1
       @mines = Mines.all()
+      @connectTo = connectTo
+      # debugger
 
       @scope.showtools = (val) =>
 
@@ -251,8 +262,7 @@ define (require) ->
       o[key] = value
 
     hasSomething: (what, data, key) ->
-      # debugger
-      {scope, console, to, Q, mines} = @
+      {scope, console, to, Q, mines, connectTo} = @
       if what is 'list'
         return to -> scope.list = data
 
@@ -344,7 +354,8 @@ define (require) ->
             goTo "/history/#{ history.id }/#{ nextCardinal }"
             ga 'send', 'event', 'history', 'append', step.tool
 
-  Controllers.controller 'HistoryStepCtrl', Array '$scope', '$log', '$modal', (scope, log, modalFactory) ->
+  Controllers.controller 'HistoryStepCtrl', Array '$scope', '$log', '$modal', 'Mines', (scope, log, modalFactory, Mines) ->
+
 
     scope.$watch 'appView.elide', ->
       scope.elide = scope.appView.elide && scope.$middle && (scope.steps.length - scope.$index) > 3

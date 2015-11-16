@@ -18,14 +18,17 @@ define ['lodash', './dialogue', 'text!./template-dialogue.html', './template-con
 
     if scope.listName?
       connect.then (s) -> s.fetchTemplates().then (ts) ->
+        x = 0
         for listname, values of ts
-          if "im:aspect:#{scope.category.label}" in values.tags
-              do (scope, listname, values) ->
-                values.readable = getParsedTitle values
-                scope.listnames.push values
-                do (values) ->
-                  s.count(values).then (res) ->
-                    scope.$apply -> values.count = res
+            if "im:aspect:#{scope.category.label}" in values.tags
+              if x < 5
+                do (scope, listname, values) ->
+                  values.readable = getParsedTitle values
+                  scope.listnames.push values
+                  do (values) ->
+                    s.count(values).then (res) ->
+                      scope.$apply -> values.count = res
+              x++
 
               # if scope.listnames.length < 5
 
@@ -38,7 +41,6 @@ define ['lodash', './dialogue', 'text!./template-dialogue.html', './template-con
           service:
             root: scope.service.root
           query: selectedTemplate
-      debugger
       scope.appendStep data: step
 
 
