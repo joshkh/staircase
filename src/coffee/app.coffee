@@ -14,20 +14,13 @@ define (require, exports, module) ->
   require 'angular-cookies'
   require 'angular-local-storage'
   require 'angular-xeditable'
+  require 'angular-nanoscroller'
   require 'filters'
   require 'services'
   require 'directives'
   require 'controllers'
   config = require 'json!/api/v1/client-config'
   ga     = require 'analytics'
-  # require 'angular-antiscroll'
-  # ns = require 'nanoscroller'
-  require 'angular-nanoscroller'
-
-
-  # require 'perfect_scrollbar'
-
-  # debugger
 
   # Whitelist the sources of any tools we plan on using.
   whiteList = ['self'].concat(config.whitelist)
@@ -48,17 +41,8 @@ define (require, exports, module) ->
     'headroom',
     'xeditable',
     'cgNotify',
-    # 'antiscroll',
     'sun.scrollable'
-    # 'sun.scrollable'
-    # 'perfect_scrollbar'
-    # 'perfectScrollbarJquery'
   ]
-
-  console.log "steps is", Steps
-  console.log "jquery is", jQuery
-
-  # debugger;
 
   Steps.config Array '$routeProvider', (routes) -> Steps.routes = routes
   Steps.config Array '$controllerProvider', (cs) -> Steps.controllers = cs

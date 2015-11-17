@@ -9,29 +9,22 @@ define ['lodash', './dialogue', 'text!./template-dialogue.html', './template-con
     connect = connectTo scope.service.root
     scope.listnames = []
     scope.templatecontroller = tc
-    console.log tc
-
 
     getParsedTitle = ({title, name}) -> (title or name).replace /.*--> /, ''
 
-
-
     if scope.listName?
       connect.then (s) -> s.fetchTemplates().then (ts) ->
-        x = 0
+        limit = 0
         for listname, values of ts
             if "im:aspect:#{scope.category.label}" in values.tags
-              if x < 5
+              if limit < 5
                 do (scope, listname, values) ->
                   values.readable = getParsedTitle values
                   scope.listnames.push values
                   do (values) ->
                     s.count(values).then (res) ->
                       scope.$apply -> values.count = res
-              x++
-
-              # if scope.listnames.length < 5
-
+              limit++
     scope.runTemplate = (selectedTemplate) ->
       step =
         title: "Structured Search"

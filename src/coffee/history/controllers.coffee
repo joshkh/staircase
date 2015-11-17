@@ -66,84 +66,40 @@ define (require) ->
     constructor: inject ->
       @init()
       @startWatching()
-      console.log @
+      @
 
     elide: true
 
     startWatching: ->
       scope = @scope
 
-      # scope.$watchCollection 'items', ->
-      #
-      #   exporters = []
-      #   # debugger
-      #   for tool in scope.nextTools when tool.handles 'items'
-      #     for key, data of scope.items when data.ids.length
-      #       exporters.push {key, data, tool}
-      #   otherSteps = (s for s in scope.nextSteps when not s.tool.handles 'items')
-      #   scope.nextSteps = otherSteps.concat(exporters)
-      #   console.log "^^^^^^ NEXT STEPS (items)", scope.nextSteps
+      scope.$watch 'messages', (msgs) -> null # TODO
 
-
-      scope.$watch 'messages', (msgs) ->
-        # console.log "MESSAGES", msgs
-
-        handlers = L.values msgs
-        console.log "MESSAGE HANDLERS", handlers
-        # otherSteps = (s for s in scope.nextSteps when s.kind isnt 'msg')
-        # scope.nextSteps = otherSteps.concat(handlers)
-        # console.log "NEXT STEPS (msg)", scope.nextSteps
-
-      scope.$watch 'categories', (cats) ->
-        # debugger
-
-      # scope.$watch 'ccat', (val) -> console.log "CCAT is now", val
 
       scope.$watchCollection 'items', (items) ->
-        console.log "ITEMS", items
-        # debugger
-        exporters = []
-        for tool in scope.nextTools when tool.handles 'items'
-          for key, data of scope.items when data.ids.length
-            exporters.push {key, data, tool}
-        otherSteps = (s for s in scope.nextSteps when not s.tool.handles 'items')
-        scope.nextSteps = otherSteps.concat(exporters)
-
-
+        null # TODO
+        # exporters = []
+        # for tool in scope.nextTools when tool.handles 'items'
+        #   for key, data of scope.items when data.ids.length
+        #     exporters.push {key, data, tool}
+        # otherSteps = (s for s in scope.nextSteps when not s.tool.handles 'items')
+        # scope.nextSteps = otherSteps.concat(exporters)
 
       scope.$watch 'list', (val) =>
-
-        console.log "previous steps", @scope.steps
-
         if val?
-          # console.log "connectTo is", @connectTo
-          root = scope.step.data.service.root
+          # TODO Refactor this to somewhere else
           connect = @connectTo scope.step.data.service.root
           connect.then (s) ->
             s.fetchList(scope.step.data.listName).then (res) ->
               scope.list.size = res.size
 
-
-          # console.log "LIST IS", val
           listHandlers = []
           for tool in scope.nextTools when tool.handles 'list'
             for category in scope.categories
               if tool.ident in category.tools
                 listHandlers.push {tool, category: category, data: scope.list}
-          # otherSteps = (s for s in scope.nextSteps when not s.tool.handles 'list')
-          # scope.nextSteps = otherSteps.concat(listHandlers)
-          scope.nextSteps2 = listHandlers
-          # console.log "NEXT STEPS IS NOW", scope.nextSteps2
+          scope.nextSteps = listHandlers
 
-        # categories = []
-        # scope.nextSteps2 = []
-        # for tool in scope.nextTools
-        #   if tool.category? and tool.category not in categories
-        #     categories.push tool.category
-        #     scope.nextSteps2.push tool
-        # categories.push "Other"
-        # console.log "nextsteps2", scope.nextSteps2
-        # scope.categories = categories
 
     init: ->
       {Histories, Mines, params, http, connectTo} = @
@@ -167,64 +123,21 @@ define (require) ->
       @connectTo = connectTo
       # debugger
 
-      @scope.showtools = (val) =>
+      @scope.showtools = (val) => @scope.ccat = val
 
-        # console.log "CALLING SHOW TOOLS"
+      @scope.clearcc = => @scope.ccat = null
 
-        @scope.ccat = val
+      @scope.showmenu = => @scope.showsubmenu = true
 
-        # @scope.item1 = val
+      @scope.hidemenu = => @scope.showsubmenu = false
 
-        # console.log "CATEGORIES", @scope.categories
-        # @scope.nextSteps2 = (tool for tool in @scope.nextTools when tool.category is val)
-        # console.log "SHOWING TOOLS", @scope.nextSteps
-        # console.log "SCOPE.STEPS", @scope.steps;
-        # console.log "SCOPE.HISTORIES", @scope.steps;
-        #
-        #
+      @scope.expandhistory = => @scope.openhistory = true
 
+      @scope.shrinkhistory = => @scope.openhistory = false
 
-        # @scope.nextSteps3 = (s for s in @scope.nextSteps when s.tool.ident in val.tools and !s.kind?)
-        # console.log "CAN SHOW THESE......", @scope.nextSteps2
+      @scope.expandnextsteps = => @scope.opennextsteps = true
 
-
-
-
-        # else
-        #   for item in @scope.nextSteps
-        #     console.log "val", item.tool.category
-        #   @scope.nextSteps2 = (s for s in @scope.nextSteps when not s.tool.category?)
-
-        # console.log "can show", tool
-        # console.log "next steps is now", @scope.nextSteps3
-        # console.log "scope cateogyr is", @scope.ccat
-
-      # @scope.talktools = (cat) =>
-      #   @scope.cattools = cat.tools
-      #   @scope.ccat = cat
-      #   console.log "scope cat is", @scope.ccat
-
-      @scope.clearcc = () =>
-        @scope.ccat = null
-
-      @scope.showmenu = =>
-        @scope.showsubmenu = true
-
-      @scope.hidemenu = =>
-        @scope.showsubmenu = false
-
-      @scope.expandhistory = =>
-        @scope.openhistory = true
-
-      @scope.shrinkhistory = =>
-        @scope.openhistory = false
-
-      @scope.expandnextsteps = =>
-        @scope.opennextsteps = true
-
-      @scope.shrinknextsteps = =>
-        @scope.opennextsteps = false
-
+      @scope.shrinknextsteps = => @scope.opennextsteps = false
 
       toolNotFound = (e) => @to => @scope.error = e
 
@@ -238,7 +151,7 @@ define (require) ->
           .then ({data}) -> data.map toTool
           .then (providers) => @scope.providers = providers
       http.get('/tool-categories')
-          .then ({data}) => console.log "categories", data; @scope.categories = data;
+          .then ({data}) => @scope.categories = data;
 
     saveHistory: ->
       @scope.editing = false

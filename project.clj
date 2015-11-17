@@ -76,14 +76,14 @@
   :env {
       :asset-js-engine :v8
       :web-search-placeholder "enter a search term"
-      :web-gh-repository "https://github.com/alexkalderimis/staircase"
+      :web-gh-repository "https://github.com/intermine/staircase"
       :db-classname "org.postgresql.Driver"
       :db-subprotocol "postgresql"
       :db-migrate true ;; Set falsy to disable migrations.
       :web-project-title "InterMine"
       :web-max-session-age ~(* 60 60 24)
       :web-max-age ~(* 30 24 60 60)
-      :web-contacts [["fa-github" "https://github.com/alexkalderimis/staircase" "GitHub"]]
+      :web-contacts [["fa-github" "https://github.com/intermine/staircase" "GitHub"]]
       :web-services {
         "flymine-beta" "http://beta.flymine.org/beta/service"
         "zfin" "http://www.zebrafishmine.org/service"
@@ -103,7 +103,6 @@
         "http://tools.intermine.org/**"
         "http://alexkalderimis.github.io/**"
         "http://intermine.github.io/**"
-        "http://duck/**"
         "http://intermine-tools.github.io/**"]
       :client-step-config {
         :show-list {
@@ -151,32 +150,8 @@
         :tools [:list-templates]}
         {:label "Function"
         :icon "fa fa-cube"
-        :tools [:tool1 :tool2 :tool3]}
-        ; {:label "Regulation"
-        ; :icon "fa fa-tree"
-        ; :tools [:tool1 :show "Expression" :tool2 :tool3]}
-        ; {:label "Diseases"
-        ; :icon "fa fa-tree"
-        ; :tools [:tool1 :tool2 :tool3]}
-        ; {:label "Proteins"
-        ; :icon "fa fa-tree"
-        ; :tools [:tool1 :tool2 :tool3]}
-        ; {:label "Literature"
-        ; :icon "fa fa-tree"
-        ; :tools [:tool1 :tool2 :tool3]}
-        ; {:label "Pathways"
-        ; :icon "fa fa-tree"
-        ; :tools [:tool1 :tool2 :tool3]}
-        ; {:label "Other"
-        ; :icon "fa fa-beer"
-        ; :tools [:list-templates]}
-        ; {:label "Interactions" :icon "fa fa-share-alt" :tools [:tool1 :tool2]}
-        ; {:label "Disease" :icon "fa fa-medkit" :tools [:tool1 :tool2 :tool3 :tool4 :tool5]}
-        ; {:label "Literature" :icon "fa fa-book" :tools [:tool1]}
-        ; {:label "Export" :icon "fa fa-share" :tools [:tool1 :tool2 :tool3 :tool4 :tool5 :tool6 :tool7 :tool8]}
-        ; {:label "Help" :icon "fa fa-question-circle" :tools [:help-tool]}
-        ; {:label "Beer" :icon "fa fa-beer" :tools [:beer-tool]}
-      ]
+        :tools [:tool1 :tool2 :tool3]}]
+
       :web-tools [ ;; Needs to be listed so we know what order these should be shown in.
                    :histories
                    :templates
